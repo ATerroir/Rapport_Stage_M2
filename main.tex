@@ -129,11 +129,11 @@ Arthur \textsc{Terroir} % Your name
     et d'un bulk modulus $K$.
     
     Le milieu est excité par une onde plane harmonique, d'amplitude 1, de pulsation $\omega$, d'angle d'incidence d'élévation $\theta$ et azimutal $\phi$. Les projections du nombre d'onde $k^{(0)}$ peuvent donc s'exprimer comme : 
-        \begin{align}
-        &k_1=-k_0 sin(\theta) cos(\phi), \\
-        &k_2=-k_0 sin(\theta) sin(\phi), \\
-        &k_3= -k_0 cos(\theta).
-        \end{align}
+    \begin{align}
+    &k_1=-k_0 sin(\theta) cos(\phi),\label{k1} \\
+    &k_2=-k_0 sin(\theta) sin(\phi),\label{k2} \\
+    &k_3= -k_0 cos(\theta),\label{k3}
+    \end{align}
         
         Le problème étant posé on s'intéresse maintenant au problème de propagation.
         
@@ -315,47 +315,55 @@ Arthur \textsc{Terroir} % Your name
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Problème inverse : Détermination de la matrice de densité $\bar{\bar{\rho}}$ et du Bulk modulus équivalent $\tilde{K}$}
 \label{Ch_Inv}
-	L'étude du problème direct étant maintenant faites, il est proposé de reprendre la relation (\ref{PB}) de propagation a travers la couche fluide, connaissant l'expression de la matrice de transfère $e^{\bar{\bar{A}}L}$, et de mettre en place une méthode inverse permettant de retrouver les densités complexes et le Bulk modulus effectif a partir des coefficients R et T.
+	A ce stade de l'étude du problème, il a été possible de d'obtenir la matrice de transfère $Tr$ de la couche fluide équivalente, et en appliquant des conditions initiales, les coefficients de réflexions et transmissions ont pu être déterminer.
+	
+	Il est donc possible maintenant de développer une méthode inverse, visant a déterminer les paramètres du milieux fluide équivalent, soit la matrices de densités complexe $\bar{\bar{\rho}}$ et le bulk modulus $K$, à partir de couple de coefficients de réflexion et transmission R/T connue pour différentes angles d'incidence.
+	La méthode développée permet d'identifier les 7 paramètres caractérisant le fluide, 6 densités complexes et 1 bulk modulus, à partir de 6 couple R/T, soit 12 informations. A première vue, la méthode est surdimensionné avec 12 informations pour 6 inconnues, mais en regardant plus en détail, il est possible de voir que les 6 couples de donnée donne l'information sur les 6 densités, ainsi que 6 informations redondantes sur le bulk modulus. Le surdimensionement vient donc 6 informations sur le bulk modulus contenues dans chaque couple de donnée. 
     
-    Cette méthode est développée, comme pour le calcul direct, avec des cas de complexité croissante. Cette approche nous offre une compréhension plus aisée des mécanisme mis en jeu lors de la résolution inverse et nous permet au final de voir une résolution simplifiée dans le cas général. 
-    Afin de reconstruire les différentes densités à partir des coefficients R et T, il est nécessaire d'avoir autant d'information que de densités a déterminer. Pour avoir différentes informations en utilisant les coefficients de réflexion et de transmission, il existe plusieurs solution, ici il est proposé de faire varier l'angle d'incidence de l'onde se propageant dans le milieu poreux. Ainsi pour chaque incidence, on observe deux coefficients R et T, il est donc possible théoriquement de résoudre le problème inverse si l'on mesure R et T à autant d'angle d'incidence que de densités a déterminer. 
+    Il est important de noter ici que la longueur L de la couche fluide est supposé déterminée par une autre méthode précédemment, et que dans la méthode proposé, L est considéré comme connue.
     
-    La première étude de la propagation d'une onde harmonique a travers la couche de fluide équivalent nous a permis d'obtenir la matrice de transfert correspondante a la propagation dans le milieu dans les différents cas que l'on va voir. De plus il est maintenant possible de poser des hypothèses sur R et T, connaissant leur forme analytiques, ce qui est utilisé dans la résolution du problème inverse.
+    La méthode peut se décrire en plusieurs étape, dans un premier temps le bulk modulus est déterminé en incidence normale, puis les termes de phases sont identifié par une variation de phase du coefficient de transmission T le long des directions $x_1$ et $x_2$. Finalement, pouvant identifier l'impédance $Z_3$ caractérisant la propagation dans la couche fluide, les densité sont déterminés.
     
-    la méthode inverse est appliquée au cas de la propagation dans la couche fluide équivalente anisotrope selon le même plan que pour l'étude direct, partant d'un milieu disposé selon ses directions principales jusqu'à voir le cas où il est disposé de manière totalement arbitraire. Dans les différents cas où l'on ne considère pas une anisotropie complète, on supposera le bulk modulus comme connu, et son obtention ne sera présenté que pour le cas le plus général, quand le matériau est complètement anisotrope.
+\section{Rappel du problème de propagation dans la couche fluide}
+\label{Ch_Inv_S_Pb}
+    Il est ici rappelé  les paramètres (\ref{Ktild}), (\ref{rho3tild}), (\ref{q1}) et \ref{q2})  de la couche fluide équivalente:
+    \begin{align*}
+	    &\bar{\bar{\rho}}=\begin{pmatrix} \rho_1 & \rho_{12} & \rho_{13} \\ \rho_{12} & \rho_2 & \rho_{23} \\ \rho_{13} & \rho_{23} & \rho_3 \end{pmatrix},\\
+        &\bar{\bar{A}}=\begin{pmatrix} i \tilde{q} & i \omega \tilde{\rho_3} \\ \frac{i \omega}{\tilde{K}} & i \tilde{q} \end{pmatrix},\\
+	    &\tilde{K}=\frac{K}{[1-\frac{\rho_{33}}{\rho_{11}\rho_{22}-\rho_{12}^2}(\frac{k_1}{k_3^{(i)}})^2(\rho_{22}-\rho_{12}\frac{k_2}{k_1})-\frac{\rho_{33}}{\rho_{11}\rho_{22}-\rho_{12}^2}(\frac{k_2}{k_3^{(i)}})^2(\rho_{11}-\rho_{12}\frac{k_1}{k_2})]},\\
+        &\tilde{\rho_3}=\rho_{33}[1-\frac{\rho_{13}}{\rho_{11}\rho_{22}-\rho_{12}^2}(\frac{k_1^{(i)}}{k_3^{(i)}})^2(\rho_{22}-\rho_{12}(\frac{k_2^{(i)}}{k_1^{(i)}})^2)-\frac{\rho_{23}}{\rho_{11}\rho_{22}-\rho_{12}^2}(\frac{k_2^{(i)}}{k_3^{(i)}})^2(\rho_{11}-\rho_{12}(\frac{k_1^{(i)}}{k_2^{(i)}})^2)], \\
+        &\tilde{q}=q_1+q_2,\\
+	    &q_{1}=\frac{\rho_{22}\rho_{13}-\rho_{12}\rho_{23}}{\rho_{11}\rho_{22}-\rho_{12}^2}k_1,\\
+        &q_{2}= \frac{\rho_{11}\rho_{23}-\rho_{12}\rho_{13}}{\rho_{11}\rho_{22}-\rho_{12}^2}k_2.
+    \end{align*}
     
-    La résolution se basant sur l'angle d'incidence  de l'onde harmonique se propageant dans le milieu, il est rappeler ici que le problème étudié est représenté sur le schéma (\ref{Schema}), où l'on considère les nombre d'onde suivant :
+    De même, les projections du nombres d'onde [(\ref{k1}):(\ref{k3})] sont :
     \begin{align*}
     &k_1=-k_0 sin(\theta) cos(\phi), \\
     &k_2=-k_0 sin(\theta) sin(\phi), \\
     &k_3= -k_0 cos(\theta).
-    \end{align*} 
-    
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Le dernier cas traité est le cas où l'on considère une rotation des 3 directions principales selon les directions $x_1$, $x_2$ et $x_3$. Le problème est donc un couplage des différents cas de rotations indépendantes vus précédemment, il est donc logique que l'on retrouve les deux méthodes de résolution du problème de propagation inverse afin de récupérer la matrice densité a partir des coefficients R et T. Un nouveau paramètre a déterminer est introduit dans cette section, a savoir que dans les sections précédentes le Bulk modulus effectif été supposé connu, or si l'on ne connaît pas le matériaux poreux, il est aussi a déterminer. La méthode inverse devra donc maintenant déterminer les densités complexes ainsi que le Bulk modulus effectif du milieu.    
-    
-    Il est proposé de présenter la méthode dans le cas général, où le matériau modélisé en fluide équivalent anisotrope est totalement inconnu, par sa symétrie et son Bulk modulus effectif. Cette méthode reprend les mêmes principes que les méthodes développée précédemment avec dans un premier temps l'obtention des termes de phase $q_1$ et $q_2$, définissant ainsi F(R,T), puis résolvant un système de 3 équations a inconnues. Une étape supplémentaire est la détermination du Bulk modulus effectif, possible connaissant $Z_3$ et $\tilde{\rho_3}$.
-    
-    La matrice de densité complexe est complète dans le cas où la symétrie de la couche fluide anisotrope n'est pas connu, les paramètres de la matrice de propagation  sont rappelés par les expressions (\ref{Ktild}), (\ref{rho3tild}), (\ref{q1}) et \ref{q2}) :
-     \begin{align*}
-	 &\bar{\bar{\rho}}=\begin{pmatrix} \rho_1 & \rho_{12} & \rho_{13} \\ \rho_{12} & \rho_2 & \rho_{23} \\ \rho_{13} & \rho_{23} & \rho_3 \end{pmatrix},\\
-     &\bar{\bar{A}}=\begin{pmatrix} i \tilde{q} & i \omega \tilde{\rho_3} \\ \frac{i \omega}{\tilde{K}} & i \tilde{q} \end{pmatrix},\\
-	 &\tilde{K}=\frac{K}{[1-\frac{\rho_{33}}{\rho_{11}\rho_{22}-\rho_{12}^2}(\frac{k_1}{k_3^{(i)}})^2(\rho_{22}-\rho_{12}\frac{k_2}{k_1})-\frac{\rho_{33}}{\rho_{11}\rho_{22}-\rho_{12}^2}(\frac{k_2}{k_3^{(i)}})^2(\rho_{11}-\rho_{12}\frac{k_1}{k_2})]},\\
-     &\tilde{\rho_3}=\rho_{33}[1-\frac{\rho_{13}}{\rho_{11}\rho_{22}-\rho_{12}^2}(\frac{k_1^{(i)}}{k_3^{(i)}})^2(\rho_{22}-\rho_{12}(\frac{k_2^{(i)}}{k_1^{(i)}})^2)-\frac{\rho_{23}}{\rho_{11}\rho_{22}-\rho_{12}^2}(\frac{k_2^{(i)}}{k_3^{(i)}})^2(\rho_{11}-\rho_{12}(\frac{k_1^{(i)}}{k_2^{(i)}})^2)], \\
-     &\tilde{q}=q_1+q_2,\\
-	 &q_{1}=\frac{\rho_{22}\rho_{13}-\rho_{12}\rho_{23}}{\rho_{11}\rho_{22}-\rho_{12}^2}k_1,\\
-     &q_{2}= \frac{\rho_{11}\rho_{23}-\rho_{12}\rho_{13}}{\rho_{11}\rho_{22}-\rho_{12}^2}k_2.
-          \end{align*}
-          
-\subsection{Impédance effective $Z_3$ et fonction F(R,T)}
-	Conformément à la section (\ref{Ch_Inv_S_rho13/23_SS_F(R,T)}), il est possible d'écrire l'impédance effective $Z_3$ a partir du problème de propagation entre les deux interfaces (\ref{PB}) telle que :
-    \begin{align*}
-    &Z_3=F(R,T,\tilde{q})Z,\nonumber\\
-    &F(R,T,\tilde{q})=\sqrt{\frac{T^2e^{2i\tilde{q}l}-(1+R)^2}{T^2e^{2i\tilde{q}L}-(1-R)^2}}.
     \end{align*}
+          
+     
+\subsection{Impédance effective $Z_3$ et nombre d'onde effectif $k_{33}$}
+    Afin de pouvoir mettre en place la méthode inverse, il faut dans un premier temps définir une variable permettent de connaître la propagation dans le milieu fluide. D'après l'équation (\ref{Eq_Prop}), deux paramètres peuvent être utilisés, l'impédance $Z_3$ et le nombre d'onde $k_{33}$, il est donc proposé ici d'exprimer ces deux termes en fonction de R et T.
+    
+    Avec l'équation (\ref{eqDif_tmp}), il est possible d'écrire les deux équations suivantes :
+    \begin{align}
+        &e^{i k_{33}L}=\frac{(p_0-Z_3v_0)}{(p_L-Z_3v_L)}e^{i\tilde{q}L},\label{Eq_Prop_tmp2}\\
+        &e^{-i k_{33}L}=\frac{(p_0+Z_3v_0)}{(p_L+Z_3v_L)}e^{i\tilde{q}L},\label{Eq_Prop_tmp3}
+    \end{align}
+    de ces 2 expressions, il est possible de déterminer les deux paramètres $Z_3$ et $k_{33}$.
+    Dans un premier temps, en écrivant le produit (\ref{Eq_Prop_tmp2})x(\ref{Eq_Prop_tmp3}), il est possible d'annuler les termes en $k_{33}$ et il vient : 
+    \begin{align}
+    Z_3^2=\frac{p_0^2-p_L^2e^{-2i\tilde{q}L}}{v_0^2-v_L^2e^{-2i\tilde{q}L}}=\frac{T^2e^{2iq_1L}-(1+R)^2}{T^2e^{2i\tilde{q}L}-(1-R)^2}Z^2\label{Z3_rho13}
+    \end{align}
+
+	
+	\begin{align}
+    &Z_3=F(R,T,\tilde{q})Z,\label{Z3}\\
+    &F(R,T,\tilde{q})=\sqrt{\frac{T^2e^{2i\tilde{q}l}-(1+R)^2}{T^2e^{2i\tilde{q}L}-(1-R)^2}}.\label{F(R,T,q)}
+    \end{align}
     Cette fonction est connu et défini en incidence normale, la où l'on sait que le terme de phase $\tilde{q}$ s'annule. Pour la connaître en tout point, et donc pouvoir définir l'impédance $Z_3$, $\tilde{q}$ doit être identifié. 
     
 \subsection{Bulk modulus équivalent $\tilde{K}$}

@@ -295,8 +295,9 @@ Arthur \textsc{Terroir} % Your name
     R et T peuvent être obtenus avec la résolution du système de 2 équations a 2 inconnues, en rappelant les conditions aux limites (\ref{BC_L}) et (\ref{BC_0}), tels que :
     \begin{align}
     &T=\frac{e^{-i\tilde{q}L}}{cos(k_{33}L)-\frac{i}{2}(\frac{Z}{Z_3}+\frac{Z_3}{Z})sin(k_{33}L)}\label{Transmission},\\ 
-    &R=\frac{i}{2} \frac{(\frac{Z}{Z_3}-\frac{Z_3}{Z})sin(k_{33}L)}{cos(k_{33}L)-\frac{i}{2}(\frac{Z_3}{Z}+\frac{Z}{Z_3})sin(k_{33}L)}\label{Reflexion}.
+    &R=\frac{i}{2} \frac{(\frac{Z}{Z_3}-\frac{Z_3}{Z})sin(k_{33}L)}{cos(k_{33}L)-\frac{i}{2}(\frac{Z_3}{Z}+\frac{Z}{Z_3})sin(k_{33}L)}\label{Reflexion},
     \end{align}
+    où $Z$ est la projection de l'impédance caractéristique du milieu de l'onde incidence telle que $Z=\frac{\rho\omega}{k_3}=-\frac{Z_c}{cos(\theta)}$.
     
     Il est possible de voir dans l'expression (\ref{Transmission}) que $\tilde{q}$ induit une variation de phase dans le coefficient de réflexion, variation qui dépend des densités complexes du milieu fluide, et donc de l'anisotropie du milieu. Dans le cas particulier où les densités $\rho_{13}$ et $\rho_{23}$ soit nulles, $\tilde{q}$ est nul, et donc il n'y aura aucun changement de la phase de T. Autrement dit, si l'on assimile les deux densités précédentes a des rotations du plan principale $\rho_I\rho_{II}$, $\tilde{q}$ traduit le déphasage induit par l'anisotropie du nouveau plan du matériau $x_1x_2$. De plus, comme attendu, $k_{33}$ joue bien le rôle d'un nombre d'onde effectif.
     
@@ -345,8 +346,9 @@ Arthur \textsc{Terroir} % Your name
     \end{align*}
           
      
-\subsection{Impédance effective $Z_3$ et nombre d'onde effectif $k_{33}$}
-    Afin de pouvoir mettre en place la méthode inverse, il faut dans un premier temps définir une variable permettent de connaître la propagation dans le milieu fluide. D'après l'équation (\ref{Eq_Prop}), deux paramètres peuvent être utilisés, l'impédance $Z_3$ et le nombre d'onde $k_{33}$, il est donc proposé ici d'exprimer ces deux termes en fonction de R et T.
+\section{Impédance effective $Z_3$ et nombre d'onde effectif $k_{33}$}
+\label{Ch_Inv_S_Z3}
+Afin de pouvoir mettre en place la méthode inverse, il faut dans un premier temps définir une variable permettent de connaître la propagation dans le milieu fluide. D'après l'équation (\ref{Eq_Prop}), deux paramètres peuvent être utilisés, l'impédance $Z_3$ et le nombre d'onde $k_{33}$, il est donc proposé ici d'exprimer ces deux termes en fonction de R et T.
     
     Avec l'équation (\ref{eqDif_tmp}), il est possible d'écrire les deux équations suivantes :
     \begin{align}
@@ -356,152 +358,151 @@ Arthur \textsc{Terroir} % Your name
     de ces 2 expressions, il est possible de déterminer les deux paramètres $Z_3$ et $k_{33}$.
     Dans un premier temps, en écrivant le produit (\ref{Eq_Prop_tmp2})x(\ref{Eq_Prop_tmp3}), il est possible d'annuler les termes en $k_{33}$ et il vient : 
     \begin{align}
-    Z_3^2=\frac{p_0^2-p_L^2e^{-2i\tilde{q}L}}{v_0^2-v_L^2e^{-2i\tilde{q}L}}=\frac{T^2e^{2iq_1L}-(1+R)^2}{T^2e^{2i\tilde{q}L}-(1-R)^2}Z^2\label{Z3_rho13}
+    Z_3^2=\frac{p_0^2-p_L^2e^{-2i\tilde{q}L}}{v_0^2-v_L^2e^{-2i\tilde{q}L}}=\frac{T^2e^{2iq_1L}-(1+R)^2}{T^2e^{2i\tilde{q}L}-(1-R)^2}Z^2\label{Z3_tmp}
     \end{align}
-
-	
-	\begin{align}
+    Il est donc possible d'exprimer l'impédance effective $Z_3$ en fonction de R et de T, Z, ainsi que du terme de phase $\tilde{q}$. les trois premier termes R, T et Z sont connus dans notre problème, connaissant l'excitation et les coefficients R et T mesuré. En revanche $\tilde{q}$, n'est pas déterminé a ce stade du problème, et en reprenant son expression $\tilde{q}=q_1+q_2$, il n'est connu que en incidence normale où il est nul. L'impédance $Z_3$ n'est donc déterminé pour le moment que en incidence normale. Finalement, il est définit ici une fonction $F(R,T,\tilde{q})$, permettant d'obtenir l'impédance $Z_3$ à partir de R et T comme :
+    \begin{align}
     &Z_3=F(R,T,\tilde{q})Z,\label{Z3}\\
     &F(R,T,\tilde{q})=\sqrt{\frac{T^2e^{2i\tilde{q}l}-(1+R)^2}{T^2e^{2i\tilde{q}L}-(1-R)^2}}.\label{F(R,T,q)}
     \end{align}
-    Cette fonction est connu et défini en incidence normale, la où l'on sait que le terme de phase $\tilde{q}$ s'annule. Pour la connaître en tout point, et donc pouvoir définir l'impédance $Z_3$, $\tilde{q}$ doit être identifié. 
+
     
-\subsection{Bulk modulus équivalent $\tilde{K}$}
-   	L'identification du Bulk modulus équivalent $\tilde{K}$ se a partir de la définition de l'impédance effective $z_3$, elle peut être définit comme $Z_3=\tilde{\rho_3}c_{33}$. La célérité effective des ondes dans le milieu fluide peut se définir de deux façons différentes, en fonction des propriété effective du milieu, $c_{33}=\sqrt{\frac{\tilde{K}}{\tilde{\rho_3}}}$, ou en fonction du nombre d'onde effectif dans le milieu, $c_{33}=\frac{\omega}{k_{33}}$. Connaissant $Z_3$ en incidence normale, il suffit d'obtenir le nombre d'onde effectif $k_{33}$, afin de connaître $\tilde{K}$ et $\tilde{\rho_3}$.
+    En reprenant l'expression (\ref{Eq_Prop_tmp2}), il est possible d'exprimer $k_{33}$. $\xi$ est posé telle que $\xi=\frac{(p_0-Z_3v_0)}{(p_L-Z_3v_L)}e^{i\tilde{q}L}=|\xi|e^{i\psi}$. De plus il est possible d'écrire, en rappelant que $k_{33}$ est complexe, $k_{33}=\Re(k_{33})+i\ \Im(k_{33})$, il est finalement possible d'écrire :
+     \begin{align}
+        k_{33}=\frac{\psi-i\ ln(|\xi|)}{L}\label{k_{33}}.
+    \end{align}
+    Le nombre d'onde effectif $k_{33}$ peut, de la même façon que $z_3$, être obtenu en incidence normale mais n'est pas défini pour tout les angles d'incidence.
     
-    $k_{33}$ peut être déduit du problème de propagation (\ref{PB}), dans ce cas $Z_3$ est supposée connue et l'on cherche a identifier le nombre d'onde effectif en incidence normale. En repartant de l'expression matricielle de l'équation de propagation entre les deux interfaces, il est possible d'écrire la relation (\ref{Eq_diff_matr2}), avec les conditions aux limites (\ref{BC_0}) et (\ref{BC_L}), comme :
-    \begin{align*}
-    e^{i k_{33}L}=\frac{(1+R)-\frac{Z_3}{Z}(1-R)}{T-\frac{Z_3}{Z}T},
-    \intertext{En incidence normale, le terme de phase $\tilde{q}$ est nulle et l'impédance $Z_3$ est connue soit :}
-    e^{i k_{33}L}=\frac{Z(1+R)-Z_3(1-R)}{(Z-Z_3)T}.
-    \end{align*}
+\section{Bulk modulus équivalent $\tilde{K}$}
+\label{Ch_Inv_S_K}
+Afin de pouvoir identifier les densités du fluide équivalent, il est nécessaire de connaître l'impédance $Z_3$  et le bulk modulus $K$, il est ici proposé de déterminer $K$.
     
-    Maintenant que $k_{33}$ est déterminer, la célérité effective des ondes $c_{33}$ est connue, l'on peut simplement obtenir $K$ et $\tilde{\rho_3}$, en considérant $\tilde{K}=K$ en incidence normale, par :
-    \begin{align*}
-    &K=\frac{Z_3}{k_{33}}^{\theta=0}_{\phi=0},\\
-    &\tilde{\rho_3}=\frac{Z_3 k_{33}}{\omega}^{\theta=0}_{\phi=0}.
-    \end{align*}
+    Comme dit précédemment, l'information de $K$ est contenue pour chaque couple R/T, et plus précisément dans les paramètres $Z_3$ et $k_{33}$ qui nous intéresse en incidence normale.
     
+    Par définition l'on peut écrire :
+    \begin{align}
+        Z_3=\tilde{\rho_3}c_{33}=\sqrt{\tilde{\rho_3}\tilde{K}},\label{Z3_tmp2}\\
+        k_{33}=\frac{\omega}{c_{33}}=\sqrt{\frac{\tilde{\rho_3}}{\tilde{K}}}\label{k33_tmp}
+    \end{align}
+    Sachant que l'expression de $\tilde{K}$ (\ref{Ktild}) devient en incidence normale $\tilde{K}=K$, il est possible d'écrire par simple produit où division de (\ref{Z3_tmp2}) et (\ref{k33_tmp}) :
+    \begin{align}
+        K=\frac{Z_3}{k_{33}}\omega|^{\theta=0}_{\phi=0},\label{K}\\
+        \tilde{\rho_3}=\frac{Z_3k_{33}}{\omega}|^{\theta=0}_{\phi=0}.\label{rho3tild_id}
+    \end{align}
+    
+    $K$ et $\tilde{\rho_3}$ peuvent donc être identifiés en incidence normale.
+
+\section{Termes de phase $\tilde{q}=q_1+q_2$}
+\label{Ch_Inv_S_q}
+    Afin de pouvoir de connaître $Z_3$ pour chaque angle d'incidence, et donc de pouvoir déterminer la matrice densité $\bar{\bar{\rho}}$, le terme de phase $\tilde{q}$ doit être identifier. $\tilde{q}$ correspond a une variation de la phase de l'onde transmise, due a un couplage induit par les densités $\rho_{13}$ et $\rho_{23}$. Afin d'observer la variation de phase produite par $\tilde{q}$, il est possible d'étudier le coefficient de transmission pour deux ondes incidentes, de même angle azimutal $\phi$ et d'élévation $\theta $ opposée, ainsi pour deux ondes incidentes le long d'une même direction, un déphasage de transmission sera observé et l'on pourra remonter au terme de phase $\tilde{q}$.
+    
+    Du point de vue mathématique, cela peut s'expliquer en s'intéressant à l'expression (\ref{Transmission}) du coefficient de transmission. Pour un angle azimutal $\phi$ fixé, si l'on considère deux angles d'incidence opposés $\pm \theta$, l'expression ne change que par le terme en $\tilde{q}$. $k_{33}$ et $Z_3$ varie avec l'angle d'incidence de part $\tilde{K}$, or d'après l'expression (\ref{Ktild}), il est possible de montrer $\tilde{K}|^{+\theta}_{\phi}=\tilde{K}|^{-\theta}_{\phi}$. De plus l'impédance Z dépend d'une fonction paire de l'élévation $\theta$, il est donc montré que la variation du coefficient de transmission T ne dépend que du terme de phase $\tilde{q}$.
+    
+    Si l'on étudie l'expression de $q_1$ (\ref{q1}) et de $q_2$ (\ref{q2}), il est possible de choisir deux couples d'angle d'incidence $\theta$ et $\phi$ adéquates, afin d'isoler l'influence de soit $q_1$, soit $q_2$, dans le terme de phase $\tilde{q}$. Afin d'isoler le terme $q_1$, il est proposé de prendre deux angles d'incidences le long de l'axe $x_1$, soit un angle azimutal de $\phi=0$, d'où $k_2=q_2=0$, de plus pour deux angles d'élévation opposés $\theta=\pm \frac{\pi}{6}$, il est possible d'écrire $q_1|^{\theta=\frac{\pi}{6}}_{\phi=0}=-q_1|^{\theta=\frac{-\pi}{6}}_{\phi=0}$. De même pour isoler $q_2$, il est possible de prendre deux angles d'incidence opposé le long de $x_2$, tel que $\theta=\pm \frac{\pi}{6}$ et $\phi=\frac{\pi}{2}$.
+    
+    Il est ici définit les deux termes $q_1^{(0)}$ et $q_2^{(0)}$ correspondant aux termes $q_1$ et $q_2$ sans projection du nombre d'onde incident $k^{(0)}$, tels que :
+    \begin{align}
+            &q_1^{(0)}=\frac{\rho_2\rho_{13}-\rho_{12}\rho_{23}}{\rho_1\rho_2-\rho_{12}^2}k^{(0)},\label{q1,0}\\
+        &q_2^{(0)}=\frac{\rho_1\rho_{23}-\rho_{12}\rho_{13}}{\rho_1\rho_2-\rho_{12}^2}k^{(0)}.\label{q2,0}
+    \end{align}
+    
+    Considérant l'expression (\ref{Transmission}), le rapport de coefficient de transmission pour les deux couples choisis s'écrit :
+    \begin{align}
+     e^{iq_1^{(0)}L}=\frac{T^{\theta=\frac{\pi}{6}}_{\phi=0}}{T^{\theta=\frac{-\pi}{6}}_{\phi=0}},\ e^{iq_2^{(0)}L}=\frac{T^{\theta=\frac{\pi}{6}}_{\phi=\frac{-\pi}{2}}}{T^{\theta=\frac{-\pi}{6}}_{\phi=\frac{-\pi}{2}}},
+    \end{align}
+    et utilisant la même méthode que pour $k_{33}$, il est possible d'identifier $q_1^{(0)}$ et $q_2^{(0)}$ et donc $q_1$ et $q_2$.
+    
+\section{Identification des densités du fluide équivalent}    
+\label{Ch_Inv_S_rho}
 \subsection{Système d'équation}
-	Le calcul de $\tilde{K}$ dans la section précédente permet de poser l'impédance effective $Z_3$ comme un système d'équation dépendant des deux angles d'incidences en reprenant la méthode utilisée dans la partie (\ref{Ch_Inv_S_rho13_SS_rho2}). En posant $\tilde{K}=\frac{K}{\alpha}$ et $\tilde{\rho_3}=\rho_3 \beta$, il est possible d'écrire :
+\label{Ch_Inv_S_rho_SS_eq}
+    Maintenant que le bulk modulus $K$ est connu ainsi que le terme de phase $\tilde{q}$, l'impédance effective $Z_3$ est connu pour tout les angles d'incidence, il est proposé d'identifier les différentes densités en utilisant les données connu a travers $Z_3$.
+    
+	L'impédance est ici réécrite de façon à mettre en évidence les différents paramètres a identifier, c'est-à-dire les densités complexes. En posant $\tilde{K}=\frac{K}{\alpha}$, il est possible d'exprimer $Z_3$, en développant l'expression (\ref{Ktild}), comme :
+	\begin{align}
+        &Z_3=\sqrt{\tilde{\rho_3}\tilde{K}}=\sqrt{\frac{\tilde{\rho_3}K}{\alpha}},
+        \intertext{avec :}
+        &\alpha=1-\frac{K}{\omega^2}\frac{\rho_2 k_1^2+\rho_1 k_2^2-2\rho_{12}k_1k_2}{\rho_1\rho_2-\rho_{12}^2}.
+    \end{align}
+    Il vient donc :
     \begin{align}
-    &\alpha=1-\frac{K}{\omega^2}\frac{\rho_2 k_1^2+\rho_1 k_2^2-2\rho_{12}k_1k_2}{\rho_1\rho_2-\rho_{12}^2},\nonumber \\
-    &\beta=1-\frac{\rho_{13}(\rho_2\rho_{13}-\rho_{12}\rho_{23})+\rho_{23}(\rho_1\rho_{23}-\rho_{12}\rho_{13})}{\rho_3(\rho_1\rho_2-\rho_{12}^2)},\nonumber \\
-    &\gamma=\frac{K}{Z_3^2},\nonumber \\
-    &\frac{1}{\rho_3}\frac{\alpha}{\beta}=\frac{1-\frac{K}{\omega^2}\frac{\rho_2 k_1^2+\rho_1 k_2^2-2\rho_{12}k_1k_2}{\rho_1\rho_2-\rho_{12}^2}}{\rho_3-\frac{\rho_{13}(\rho_2\rho_{13}-\rho_{12}\rho_{23})+\rho_{23}(\rho_1\rho_{23}-\rho_{12}\rho_{13})}{\rho_1\rho_2-\rho_{12}^2}}=\gamma.\label{alpha_beta_complet}
+        \alpha=\frac{\tilde{\rho_3}K}{Z_3^2},
+    \end{align}
+    et il est posé l'équation suivante pour l'identification des densités :
+     \begin{align}
+        \frac{K}{\omega^2}\frac{\rho_2k_1^2 +\rho_1k_2^2-2\rho_{12}k_1k_2}{\rho_1\rho_2-\rho_{12}^2}=1-\frac{\tilde{\rho_3}K}{Z_3^2}.\label{Eq_res}
     \end{align}
     
-    Six densités sont a déterminer par la méthode inverse, il faut donc logiquement les coefficient R et T pour 6 incidences différentes, les informations de R et T étant contenues dans l'impédance $Z_3$ et donc $\gamma$. 
-	Les informations nécessaires peuvent se décomposer selon quatre catégories :
-    \begin{itemize}
-    \item Une information en incidence normale afin de déterminer $\tilde{K}$ et $\tilde{\rho_3}$, et ainsi de connaître la densité $\rho_3$. 
-    \item Deux informations selon l'axe $x_1$ afin de pouvoir déterminer le terme de phase $q_1$ par une variation de phase des coefficient de transmission
-    \item Deux informations selon $x_2$ pour déterminer le terme de phase $q_2$
-    \item Une information en incidence oblique afin de pouvoir résoudre le système de 3 équations a 3 inconnues conformément a la section (\ref{Ch_Inv_S_rho12_SS_rho1/2/12}) et de pouvoir déterminer $\rho_1$, $\rho_2$ et $\rho_{12}$ 
-    \end{itemize}
+    Afin de simplifier la résolution du problème, $\gamma$ est ci-dessous défini et la notation indicielle des angles d'incidence est mise en place :
     
-    Les six équations issue de la relation (\ref{alpha_beta_complet}) qui nous intéresse sont, en reprenant la notation indicielle des angles :
     \begin{align}
-    \intertext{En incidence normale : $\theta=0$, $\phi=0$}
-    &\frac{1}{\tilde{\rho_3}}=\frac{1}{\rho_3-\frac{\rho_{13}(\rho_2\rho_{13}-\rho_{12}\rho_{23})+\rho_{23}(\rho_1\rho_{23}-\rho_{12}\rho_{13})}{\rho_1\rho_2-\rho_{12}^2}}=\Large{\gamma|}^{(0)}_{(0)},\ \tilde{q}=0,\label{Eq_complet_0_0}
-    \intertext{En incidence orienté selon l'axe $x_1$ : $\theta=\frac{\pi}{6}$, $\phi=0$ et $\theta=\frac{-\pi}{6}$, $\phi=0$}
-    &\frac{1}{\tilde{\rho_3}}[1-\frac{K}{\omega^2}\frac{\rho_2}{\rho_1\rho_2-\rho_{12}^2}k_1^2]=\Large{\gamma|}^{(\frac{\pi}{6})}_{(0)},\ \tilde{q}=\frac{-1}{2}q_1^{(0)},\ q_1^{(0)}=\frac{\rho_2\rho_{13}-\rho_{12}\rho_{23}}{\rho_1\rho_2-\rho_{12}^2}k^{(0)}\label{Eq_complet_pi6_0}\\
-    &\frac{1}{\tilde{\rho_3}}[1-\frac{K}{\omega^2}\frac{\rho_2}{\rho_1\rho_2-\rho_{12}^2}k_1^2]=\Large{\gamma|}^{(\frac{-\pi}{6})}_{(0)},\ \tilde{q}=-\frac{1}{2}q_1^{(0)}\label{Eq_complet_-pi6_0}\\
-    \intertext{En incidence orienté selon l'axe $x_2$ : $\theta=\frac{\pi}{6}$, $\phi=\frac{\pi}{2}$ et $\theta=\frac{-\pi}{6}$, $\phi=\frac{\pi}{2}$}
-    &\frac{1}{\tilde{\rho_3}}[1-\frac{K}{\omega^2}\frac{\rho_1}{\rho_1\rho_2-\rho_{12}^2}k_2^2]=\Large{\gamma|}^{(\frac{\pi}{6})}_{(\frac{\pi}{2})},\ \tilde{q}=\frac{-1}{2}q_2^{(0)},\ q_2^{(0)}=\frac{\rho_1\rho_{23}-\rho_{12}\rho_{13}}{\rho_1\rho_2-\rho_{12}^2}k^{(0)}\label{Eq_complet_pi6_pi2}\\
-    &\frac{1}{\tilde{\rho_3}}[1-\frac{K}{\omega^2}\frac{\rho_1}{\rho_1\rho_2-\rho_{12}^2}k_2^2]=\Large{\gamma|}^{(\frac{-\pi}{6})}_{(\frac{\pi}{2})},\ \tilde{q}=\frac{1}{2}q_2^{(0)},\label{Eq_complet_-pi6_pi2}\\
-    \intertext{En incidence oblique : $\theta=\frac{\pi}{4}$, $\phi=\frac{\pi}{4}$ }
-    &\frac{1}{\tilde{\rho_3}}[1-\frac{K}{\omega^2}\frac{\rho_1+\rho_2-2\rho_{12}}{\rho_1\rho_2-\rho_{12}^2}k^2]=\Large{\gamma|}^{(\frac{\pi}{4})}_{(\frac{\pi}{4})},\ \tilde{q}=\frac{-1}{2}q_1^{(0)}+\frac{-1}{2}q_2^{(0)},\ k=k_1=k_2\label{Eq_complet_pi4_pi4}\\
+        &\gamma=1-\frac{\tilde{\rho_3}K}{Z_3^2},\label{gamma}\\
+        &X^{(x)}_{(y)}=X|^{\theta=x}_{\phi=y}.\label{notation_angle}
     \end{align}
     
-\subsection{Terme de phase $\tilde{q}=q_1+q_2$}
-	La première étape dans l'identification des densités complexes, connaissant le bulk modulus équivalent, est l'obtention des termes de phase $q_1$ et $q_2$ comme fait dans la section (\ref{Ch_Inv_S_rho13/23}) traitant de deux rotation azimutales des directions principales. Ces termes connus, il est possible d'avoir l'impédance $Z_3$ en tout points. 
-    
-    Contrairement a la section (\ref{Ch_Inv_S_rho13/23}), il n'est plus possible de déterminer $q_1$ et $q_2$ grâce a une information en incidence oblique de part le couplage induit par la densité $\rho_{12}$. Il est donc proposé une nouvelle méthode, utilisant la variation de phase des coefficients de transmission et de réflexion  pour deux ondes ayant une incidence différente le long de l'axe $x_1$ ou $x_2$. Il est possible de cette façon de mettre en évidence les terme de phase correspondant $q_1$ et $q_2$.
-    
-\subsubsection*{Terme de phase $q_1$}
-	La différence d'impédance $\Gamma$ pour deux d'incidence le long de $x_1$ peut s'écrire $\Gamma=\gamma|^{(\frac{\pi}{6})}_{(0)}-\gamma|^{(\frac{-\pi}{6})}_{(0)}$.
-	En remplaçant par les expressions (\ref{Eq_complet_pi6_0}) et (\ref{Eq_complet_-pi6_0}), il vient $\Gamma=0$, et l'on peut développer en rappelant que $\gamma=\frac{K}{Z_3^2}=\frac{K}{(F(R,T,\tilde{q})Z)^2}$ :
-    \begin{align*}
-    \frac{K}{F^2(R,T,\tilde{q})Z^2}|^{(\frac{\pi}{6})}_{(0)}-\frac{K}{F^2(R,T,\tilde{q})Z^2}|^{(\frac{-\pi}{6})}_{(0)}=0
-    \end{align*}
-    
-    Cette expression peut être simplifier, dans un premier temps il est facile de remarquer que l'impédance Z est la même pour les deux angles, $k_3$ étant le même dans les deux cas. La seconde simplification possible vient du fait que la différence d'angle de propagation n'induit qu'un changement sur le terme de phase $q_1$ et donc sur T, on a donc $R=R|^{(\frac{\pi}{6})}_{(0)}=R|^{(\frac{-\pi}{6})}_{(0)}$. 
-	
-    L'expression peut se réécrire, avec les notations $X=X|^{(\frac{\pi}{6})}_{(0)}$ et $X'=X|^{(\frac{-\pi}{6})}_{(0)}$ :
-    \begin{align*}
-    \frac{T^2e^{-iq_1^{(0)}L}-(1-R)^2}{T^2e^{-iq_1^{(0)}L}-(1+R)^2}-\frac{T'^2e^{iq_1^{(0)}L}-(1-R)^2}{T'^2e^{iq_1^{(0)}L}-(1+R)^2}=0,
-    \end{align*}
-    d'où en mettant au dénominateur commun :
-    \begin{align*}
-    &[T^2e^{-iq_1^{(0)}L}-(1-R)^2][T'^2e^{iq_1^{(0)}L}-(1+R)^2]-[T^2e^{-iq_1^{(0)}L}-(1+R)^2][T'^2e^{iq_1^{(0)}L}-(1-R)^2]=0,\\
-    \leftrightarrow & [(1+R)^2+(1-R)^2]T^2e^{-iq_1^{(0)}L}+[(1+R)^2-(1-R)^2]T'^2e^{iq_1^{(0)}L}=0,\\
-    \leftrightarrow & -4RT^2e^{-iq_1^{(0)}L}+4RT'^2e^{iq_1^{(0)}L}=0. 
-    \end{align*}
-    
-    Il est donc finalement possible d'écrire le terme de phase $q_1$ a partir de l'expression (\ref{q10L_complet}) que l'on sait déterminer :
-    \begin{align}
-    e^{iq_1^{(0)}L}=\frac{T}{T'}=\frac{T|^{(\frac{\pi}{6})}_{(0)}}{T|^{(\frac{-\pi}{6})}_{(0)}} \label{q10L_complet}
-    \end{align}
-
-\subsubsection*{Terme de phase $q_2$}
-	De façon analogue il est possible de montrer qu'en prenant une différence d'impédance $Z_3$ pour des angles d'incidence le long $x_2$ telle que $\Gamma'=\gamma|^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}-\gamma|^{(\frac{-\pi}{6})}_{(\frac{\pi}{2})}$, l'on peut retrouver $q_2$ par le même calcul :
-    \begin{align}
-    e^{iq_2^{(0)}L}=\frac{T|^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}}{T|^{(\frac{-\pi}{6})}_{(\frac{\pi}{2})}} \label{q20L_complet}
-    \end{align}
-        
-
 \subsection{Densités $\rho_1$, $\rho_2$ et $\rho_{12}$}
-	Les deux termes de phase étant identifier, il est possible de connaître l'impédance $Z_3$ pour tout les angles d'incidence, et la résolution se ramène aux problème du cas orthotrope faites dans la partie (\ref{Ch_Inv_S_rho12}).
-    L'identification des densités $\rho_1$, $rho_2$ et $rho_{12}$ passe donc la résolution d'un système de 3 équation a 3 inconnues conformément a la section (\ref{Ch_Inv_S_rho12_SS_rho1/2/12}.
-    
-    Il est proposé de réécrire le système d'équation pour faire isoler les différentes densités a déterminer, les trois nouvelles équations provenant des expressions (\ref{Eq_complet_pi6_0}), (\ref{Eq_complet_pi6_pi2}) et (\ref{Eq_complet_pi4_pi4}) sont :
+\label{Ch_Inv_S_rho_SS_rho1/2/12}
+    L'expression (\ref{Eq_res}) fait apparaître trois densités a déterminé, il faut donc donc trois couple R/T a des angles d'incidence différents pour pouvoir résoudre un système de 3 équations a 3 inconnues, et donc identifier les 3 densités $\rho_1$, $\rho_2$ et $\rho_{12}$.
+    Considérant les projection du nombre d'onde incident $k^{(0)}$ mises en jeu dans l'équation (\ref{Eq_res}), les trois angles d'incidence peuvent être choisis afin d'isoler l'influence de chacune des densités. En reprenant deux des angles d'incidences utilisés pour déterminer $\tilde{q}$, $\theta=\frac{\pi}{6}$ et $\phi=0$ ainsi que $\theta=\frac{\pi}{6}$ et $\phi=\frac{\pi}{2}$, il est possible de soit annuler $k_1$ ou $k_2$. De plus si un troisième angle d'incidence, dit "oblique", est pris telle que $k_1\ne 0$ et $k_2\ne 0$, avec la même projection du nombre, dans notre cas $\theta=\frac{\pi}{4}$ et $\phi=\frac{\pi}{4}$, il est possible d'écrire :
     \begin{align}
-    (\ref{Eq_complet_pi6_0}) \leftrightarrow\ &\frac{K}{\omega^2}\frac{\rho_2}{\rho_1\rho_2-\rho_{12}^2}k_1^2=[1-\tilde{\rho_3}\gamma|^{(\frac{\pi}{6})}_{(0)}]=\gamma'|^{(\frac{\pi}{6})}_{(0)}\label{Comp_1},\\
-    (\ref{Eq_complet_pi6_pi2}) \leftrightarrow\ &\frac{K}{\omega^2}\frac{\rho_1}{\rho_1\rho_2-\rho_{12}^2}k_2^2=[1-\tilde{\rho_3}\gamma|^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}]=\gamma'|^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}\label{Comp_2},\\
-    (\ref{Eq_complet_pi4_pi4}) \leftrightarrow\ &\frac{K}{\omega^2}\frac{\rho_1+\rho_2-2\rho_{12}}{\rho_1\rho_2-\rho_{12}^2}k^2=[1-\tilde{\rho_3}\gamma|^{(\frac{\pi}{4})}_{(\frac{\pi}{4})}]=\gamma'|^{(\frac{\pi}{4})}_{(\frac{\pi}{4})}\label{Comp_3}.
+        k=k_1|^{(\frac{\pi}{6})}_{(0)}=k_2|^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}=k_1|^{(\frac{\pi}{4})}_{(\frac{\pi}{4})}=k_2|^{(\frac{\pi}{4})}_{(\frac{\pi}{4})}=\frac{1}{2}k^{(0)}.
     \end{align}
     
-    Pour les 3 expressions (\ref{Comp_1}), (\ref{Comp_2}) et (\ref{Comp_3}), les projection des nombres d'ondes sont les même, autrement dit, $k=k_1=k_2$ pour tout les angles d'incidence choisis.
-    En utilisant ces relations, trois rapports de densité peuvent être écrit , tels que :
-    \begin{align}
-    &\frac{(\ref{Comp_2})}{(\ref{Comp_1})} :\ \frac{\rho_1}{\rho_2}=\frac{\gamma'|^{(\frac{\pi}{6})}_{(0)}}{\gamma'|^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}}=X_1,\label{Comp_rho2_rho1} \\
-    &\frac{(\ref{Comp_1})+(\ref{Comp_2})-(\ref{Comp_3})}{(\ref{Comp_2})} :\ \frac{\rho_{12}}{\rho_1}=\frac{1}{2}\frac{\gamma'|^{(\frac{\pi}{6})}_{(0)}+\gamma'|^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}-\gamma'|^{(\frac{\pi}{4})}_{(\frac{\pi}{4})}}{\gamma'|^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}}=X_2,\label{Comp_rho12_rho1} \\
-    &\frac{(\ref{Comp_1})+(\ref{Comp_2})-(\ref{Comp_3})}{(\ref{Comp_1})} :\ \frac{\rho_{12}}{\rho_2}=\frac{1}{2}\frac{\gamma'|^{(\frac{\pi}{6})}_{(0)}+\gamma'|^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}-\gamma'|^{(\frac{\pi}{4})}_{(\frac{\pi}{4})}}{\gamma'|^{(\frac{\pi}{6})}_{(0)}}=X_3.\label{Comp_rho12_rho2}
+    L'expression (\ref{Eq_res}) pour les trois angles d'incidence se réécrit :
+        \begin{align}
+    &\frac{K}{\omega^2}\frac{\rho_2}{\rho_1\rho_2-\rho_{12}^2}k^2=\gamma^{(\frac{\pi}{6})}_{(0)}\label{Comp_1},\\ &\frac{K}{\omega^2}\frac{\rho_1}{\rho_1\rho_2-\rho_{12}^2}k^2=\gamma^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}\label{Comp_2},\\ &\frac{K}{\omega^2}\frac{\rho_1+\rho_2-2\rho_{12}}{\rho_1\rho_2-\rho_{12}^2}k^2=\gamma^{(\frac{\pi}{4})}_{(\frac{\pi}{4})}\label{Comp_3}.
     \end{align}
-    
-    Les densités peuvent ensuite être obtenues en réintroduisant les expressions (\ref{Comp_rho2_rho1}), (\ref{Comp_rho12_rho1}) et (\ref{Comp_rho12_rho2}) dans l'une des expressions (\ref{Comp_1}), (\ref{Comp_2}) ou (\ref{Comp_3}). Par exemple résolu avec l'expression de la densité $rho_2$ :
-    \begin{align*}
-    (\ref{Comp_rho2_rho1}),(\ref{Comp_rho12_rho2}) \rightarrow (\ref{Comp_2}) :\ &\rho_1=(\rho_1\rho_2-\rho_{12}^2)\gamma'|^{(\frac{\pi}{6})}_{(\frac{\pi}{2})},\\
-    \rightarrow &\rho_2=\frac{X_1}{(X_1-X_3^2)\gamma'|^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}}.
-    \end{align*}
-    
-    Les densités $\rho_1$ et $\rho_{12}$ peuvent être déduite de $rho_2$ :
-    \begin{align*}
-    \rho_1=X_1 \rho_2,\\
-    \rho_{12}=X_3\rho_2.
-    \end{align*}
-    
-\subsection{Densités $\rho_{13}$, $\rho_{23}$ et $\rho_3$}
-    La plupart des inconnues étant maintenant déterminées, il ne reste plus qu'à retrouver les densités $\rho_{13}$, $\rho_{23}$ et $\rho_3$ restante a partir des expressions connu de des termes de phase $q_1$ et $q_2$ ainsi que de la densité effective $\tilde{\rho_3}$.
-    
-    Les termes de phase s'écrivent en fonction de $k^{(0)}$ comme ci-dessous, avec comme seule inconnues $\rho_{13}$ et $\rho_{23}$ :
-\begin{align*}
-&q_1^{(0)}=\frac{\rho_1\rho_{23}-\rho_{12}\rho_{13}}{\rho_1\rho_2-\rho_{12}^2}k^{(0)},\\
-&q_2^{(0)}=\frac{\rho_2\rho_{13}-\rho_{12}\rho_{23}}{\rho_1\rho_2-\rho_{12}^2}k^{(0)}.
-\end{align*}
-La résolution du système amène a :
-\begin{align*}
-\rho_{13}=\frac{\rho_1q_1^{(0)}+\rho_{12}q_2^{(0)}}{k^{(0)}},\\
-\rho_{23}=\frac{\rho_2q_2^{(0)}+\rho_{12}q_1^{(0)}}{k^{(0)}}.
-\end{align*}
 
-De plus en reprenant l'expression de (\ref{rho3tild}), il vient :
-\begin{align*}
-\rho_3=\tilde{\rho_3}+\frac{\rho_{13}(\rho_2\rho_{13}-\rho_{12}\rho_{23})+\rho_{23}(\rho_1\rho_{23}-\rho_{12}\rho_{13})}{\rho_1\rho_2-\rho_{12}^2}.
-\end{align*}
+    Les expressions [(\ref{Comp_1}):(\ref{Comp_3})] permettent d'écrire les rapports de densité suivant, et ainsi de déterminer un ratio $X_i$ entre ces densités :
+    \begin{align}
+    &\frac{(\ref{Comp_2})}{(\ref{Comp_1})} :\ \frac{\rho_1}{\rho_2}=\frac{\gamma|^{(\frac{\pi}{6})}_{(0)}}{\gamma|^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}}=X_1,\label{Comp_rho2_rho1} \\
+    &\frac{(\ref{Comp_1})+(\ref{Comp_2})-(\ref{Comp_3})}{(\ref{Comp_2})} :\ \frac{\rho_{12}}{\rho_1}=\frac{1}{2}\frac{\gamma|^{(\frac{\pi}{6})}_{(0)}+\gamma|^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}-\gamma|^{(\frac{\pi}{4})}_{(\frac{\pi}{4})}}{\gamma|^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}}=X_2,\label{Comp_rho12_rho1} \\
+    &\frac{(\ref{Comp_1})+(\ref{Comp_2})-(\ref{Comp_3})}{(\ref{Comp_1})} :\ \frac{\rho_{12}}{\rho_2}=\frac{1}{2}\frac{\gamma|^{(\frac{\pi}{6})}_{(0)}+\gamma|^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}-\gamma|^{(\frac{\pi}{4})}_{(\frac{\pi}{4})}}{\gamma|^{(\frac{\pi}{6})}_{(0)}}=X_3.\label{Comp_rho12_rho2}
+    \end{align}
+    
+    En introduisant ces rapports de densité dans l'une des 3 équations [(\ref{Comp_1}):(\ref{Comp_3})], ici (\ref{Comp_2}), il vient : 
+    \begin{align}
+    &\rho_2=\frac{X_1}{(X_1-X_3^2)\gamma|^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}},\label{Comp_rho2}\\
+    &\rho_1=X_1\rho_2,\label{Comp_rho1}\\
+    &\rho_{12}=X_3\rho_2.\label{Comp_rho12}
+    \end{align}
+    
+    Finalement, en développant les ratio $X_i$ dans les expressions [(\ref{Comp_rho1}):(\ref{Comp_rho12})], il est possible de déterminer les trois densités $\rho_1$, $\rho_2$ et $\rho_{12}$ :
+    \begin{align}
+        &\rho_1=\frac{\gamma^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}}{\gamma^{(\frac{\pi}{6})}_{(0)}\gamma^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}-\frac{1}{4}(\gamma^{(\frac{\pi}{6})}_{(0)}+\gamma^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}-\gamma^{(\frac{\pi}{4})}_{(\frac{\pi}{4})})^2},\label{rho1}\\
+        &\rho_2=\frac{\gamma^{(\frac{\pi}{6})}_{(0)}}{\gamma^{(\frac{\pi}{6})}_{(0)}\gamma^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}-\frac{1}{4}(\gamma^{(\frac{\pi}{6})}_{(0)}+\gamma^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}-\gamma^{(\frac{\pi}{4})}_{(\frac{\pi}{4})})^2},\label{rho2}\\
+        &\rho_{12}=\frac{\gamma^{(\frac{\pi}{6})}_{(0)}+\gamma^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}-\gamma^{(\frac{\pi}{4})}_{(\frac{\pi}{4})}}{\gamma^{(\frac{\pi}{6})}_{(0)}\gamma^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}-\frac{1}{4}(\gamma^{(\frac{\pi}{6})}_{(0)}+\gamma^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}-\gamma^{(\frac{\pi}{4})}_{(\frac{\pi}{4})})^2}.\label{rho12}
+    \end{align}
+
+\subsection{Densités $\rho_{13}$, $\rho_{23}$ et $\rho_3$}
+\label{Ch_Inv_S_rho_SS_rho13/23/3}
+    Les trois densité $\rho_{13}$, $\rho_{23}$ et $\rho_3$ reste a déterminer. L'identification peut être fait a partir des paramètres déjà connu, $q_1^{(0)}$, $q_2^{(0)}$ et $\tilde{\rho_3}$, les trois densités étant les seules inconnues restantes.
+    
+    En rappelant les expressions (\ref{q1,0}) et (\ref{q2,0}) de $q_1^{(0)}$ et $q_2^{(0)}$, il vient le système de deux équations a deux inconnues suivant :
+    \begin{align*}
+    &q_1^{(0)}=\frac{\rho_1\rho_{23}-\rho_{12}\rho_{13}}{\rho_1\rho_2-\rho_{12}^2}k^{(0)},\\
+    &q_2^{(0)}=\frac{\rho_2\rho_{13}-\rho_{12}\rho_{23}}{\rho_1\rho_2-\rho_{12}^2}k^{(0)}.
+    \end{align*}
+    La résolution du système amène à :
+    \begin{align*}
+    \rho_{13}=\frac{\rho_1q_1^{(0)}+\rho_{12}q_2^{(0)}}{k^{(0)}},\\
+    \rho_{23}=\frac{\rho_2q_2^{(0)}+\rho_{12}q_1^{(0)}}{k^{(0)}}.
+    \end{align*}
+
+    De plus d'après l'expression de $\tilde{\rho_3}$ (\ref{rho3tild}), il vient :
+    \begin{align}
+    \rho_3=\tilde{\rho_3}+\frac{\rho_{13}(\rho_2\rho_{13}-\rho_{12}\rho_{23})+\rho_{23}(\rho_1\rho_{23}-\rho_{12}\rho_{13})}{\rho_1\rho_2-\rho_{12}^2}.
+    \end{align}
+    
+\section{Conclusion}
+\label{Ch_Inv_S_Conc}
+    
     
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Résultats}
+\label{Ch_Res}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter*{Conclusion}
 \addcontentsline{toc}{chapter}{Conclusion}  

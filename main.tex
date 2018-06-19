@@ -498,18 +498,20 @@ Afin de pouvoir identifier les densités du fluide équivalent, il est nécessai
 \label{Ch_Inv_S_Conc}
     
     
-    \begin{figure}[ht!]
-        \centering
-        \includegraphics[scale=0.7]{Material_2.png}
-        \caption{Couche de matériau poreux constitué de pore ellipsoïde homogénéisé par le modèle JCAL(citation). La couche est de largeur L=4cm et est supposée infinie dans le plan $x_1x_2$. Trois cas différents sont utilisés avec trois cellules ellipsoïdes différentes, une isotrope (b), une orthotrope (c) et une anisotrope (d). Pour les 2 dernière, les directions du matériaux sont considéré comme ayant subit une rotation. Les trois angle euler "ZYX", autour de $x_1$, $x_2$ et $x_3$ sont notés sous la cellule. }
-        \label{Porous_Mat}
-    \end{figure}
     
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Résultats}
 \label{Ch_Res}
+    La méthode ayant été décrite dans la partie \ref{Ch_Inv}, il est maintenant proposé de faire une validation numérique de la méthode a partir d'un matériau poreux. Le matériau poreux, décrit sur la figure (\ref{Porous_Mat}), de longueur L=4cm selon $x_3$ et infinie dans le plan $x_1x_2$, est constitué de cellule ellipsoïdale de différentes formes. Trois cas sont étudié ici, avec une cellule isotrope, une cellule orthotrope et une cellule anisotrope. Une rotation des directions principales du fluide équivalent anisotrope est faites selon les 3 angles d'Euler en configuration "ZYX" autour de $x_1$, $x_2$ et $x_3$. L'homogénéisation du poreux étant faites avant la rotation du milieu, aucune modification n'est prise en compte dans le cas isotrope. Les 3 angles de rotation du cas orthotrope sont $\theta_I=15\textdegree$, $\theta_{III}=55\textdegree$ et $\theta_{II}=80\textdegree$, et dans le cas anisotrope $\theta_I=2\textdegree$, $\theta_{II}=37\textdegree$ et $\theta_{III}=60\textdegree$.
+    
+    \begin{figure}[ht!]
+        \centering
+        \includegraphics[scale=0.6]{Material_2.png}
+        \caption{Couche de matériau poreux constitué de pore ellipsoïde homogénéisé par le modèle JCAL(citation). La couche est de largeur L=4cm et est supposée infinie dans le plan $x_1x_2$. Trois cas différents sont utilisés avec trois cellules ellipsoïdes différentes, une isotrope (b), une orthotrope (c) et une anisotrope (d). Pour les 2 dernière, les directions du matériaux sont considéré comme ayant subit une rotation. Les trois angle euler "ZYX", autour de $x_1$, $x_2$ et $x_3$ sont notés sous la cellule. }
+        \label{Porous_Mat}
+    \end{figure}
 
-
+    Pour les trois cas, Les 6 couples R/T sont obtenue avec un modèle de propagation fluide pour les 6 angles d'incidence nécessaire a la méthode. Les paramètres des trois différents fluides (isotrope, orthotrope et anisotrope) sont identifiés par la méthode inverse et comparer à ceux du fluide équivalent, dans le cas sans bruit et avec bruit rajouté a R et T. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter*{Conclusion}
 \addcontentsline{toc}{chapter}{Conclusion}  

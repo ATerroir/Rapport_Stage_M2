@@ -14,7 +14,7 @@
 \geometry{hmargin=2.0cm,vmargin=1.5cm}
 \usepackage{wrapfig}	% Figures avec du texte autour
 \usepackage{lipsum}
-
+\usepackage{array}
 \begin{document}
 
 \begin{titlepage}
@@ -496,6 +496,25 @@ Afin de pouvoir identifier les densités du fluide équivalent, il est nécessai
     
 \section{Conclusion}
 \label{Ch_Inv_S_Conc}
+    Une méthode inverse a pu être développé pour retrouver les paramètres du fluides équivalent a partir de la longueur de la couche fluide selon $x_3$ et de 6 couples R/T pour 6 angles d'incidence différent, les 6 angles étant :\\
+    \begin{tabular}{||m{3cm}||m{3cm}|m{3cm}|m{3cm}|m{3cm}|}
+         \hline
+         $\theta (rad)$ & 0 & $\pm\frac{\pi}{6}$ & $\pm\frac{\pi}{6}$ & $\frac{\pi}{4}$ \\ \hline 
+          $\phi (rad)$ & 0 & 0 & $\frac{\pi}{2}$ & $\frac{\pi}{4}$
+          \\ \hline
+    \end{tabular}\\
+    
+    La méthode peut se diviser en 5 étapes de résolutions listé ci-dessous 
+    \begin{itemize}
+        \item 1) Détermination du bulk modulus et de $\tilde{\rho_3}$ en incidence normale
+        \item 2) Détermination des deux termes de phases $q_1$ et $q_1$ pour respectivement deux angles d'incidence opposés le long de $x_1$ et $x_2$
+        \item 3) Identification des trois densités du plan $\rho_1$, $\rho_2$ et $\rho_{12}$ avec 3 angles d'incidence selon $x_1$, $x_2$ et médian.
+        \item 4) Identification des densités $\rho_{13}$ et $\rho_{23}$ à partir de $q_1$ et $q_2$.
+        \item 5) Identification de $\rho_3$ avec $\tilde{\rho_3}$
+    \end{itemize}
+    
+    La méthode proposé permet de retrouver le bulk modulus et la matrice de densité complexe de la couche fluide équivalente, autrement dit, quelque soit la rotation des directions principales du fluide, des paramètres peuvent être identifié. Sans aucune connaissance de la géométrie du milieu, il est donc possible de retrouver ses paramètres, avec rotation des directions principales, et dans ses directions principales en résolvant une simple problème au valeur propre.  
+    
     
     
     
@@ -504,7 +523,7 @@ Afin de pouvoir identifier les densités du fluide équivalent, il est nécessai
 \label{Ch_Res}
   \begin{figure}[ht!]
         \centering
-        \includegraphics{Material_2.eps}
+        \includegraphics{Material_2.png}
         \caption{Couche de matériau poreux constitué de pore ellipsoïde homogénéisé par le modèle JCAL(citation). La couche est de largeur L=4cm et est supposée infinie dans le plan $x_1x_2$. Trois cas différents sont utilisés avec trois cellules ellipsoïdes différentes, une isotrope (b), une orthotrope (c) et une anisotrope (d). Pour les 2 dernière, les directions du matériaux sont considéré comme ayant subit une rotation. Les trois angle euler "ZYX", autour de $x_1$, $x_2$ et $x_3$ sont notés sous la cellule. }
         \label{Porous_Mat}
     \end{figure}

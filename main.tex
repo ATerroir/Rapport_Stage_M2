@@ -15,6 +15,20 @@
 \usepackage{wrapfig}	% Figures avec du texte autour
 \usepackage{lipsum}
 \usepackage{array}
+
+%%%% debut macro %%%%
+\newenvironment{changemargin}[2]{\begin{list}{}{%
+\setlength{\topsep}{0pt}%
+\setlength{\leftmargin}{0pt}%
+\setlength{\rightmargin}{0pt}%
+\setlength{\listparindent}{\parindent}%
+\setlength{\itemindent}{\parindent}%
+\setlength{\parsep}{0pt plus 1pt}%
+\addtolength{\leftmargin}{#1}%
+\addtolength{\rightmargin}{#2}%
+}\item }{\end{list}}
+%%%% fin macro %%%%
+
 \begin{document}
 
 \begin{titlepage}
@@ -74,7 +88,7 @@ Arthur \textsc{Terroir} % Your name
 \centering
 \hspace{-3cm}
 \vspace{1.2cm}
-\includegraphics[scale=0.9]{logo_LAUM.pdf}\\[1cm]  
+\includegraphics[scale=0.9]{logo_LAUM.png}\\[1cm]  
 \end{minipage}
 \begin{minipage}[c]{0.4\linewidth}
 \centering
@@ -86,7 +100,7 @@ Arthur \textsc{Terroir} % Your name
 \centering
 \hspace{1.3cm}
 \vspace{0.5cm}
-\includegraphics[scale=0.5]{Logo_LeMansUniv.pdf}\\[1cm]  
+\includegraphics[scale=0.5]{Logo_LeMansUniv.png}\\[1cm]  
 \end{minipage}
 \end{titlepage}
 %----------------------------------------------------------------------------------------
@@ -538,7 +552,7 @@ Afin de pouvoir identifier les densités du fluide équivalent, il est nécessai
         \label{Porous_Mat}
     \end{figure}
 
-    La méthode ayant été décrite dans la partie \ref{Ch_Inv}, il est maintenant proposé de faire une validation numérique de la méthode à partir d'un matériau poreux. Le matériau poreux, décrit sur la figure (\ref{Porous_Mat}), de longueur L=4cm selon $x_3$ et infinie dans le plan $x_1x_2$, est constitué de cellules ellipsoïdales de différentes formes. Trois cas sont étudiés ici, avec une cellule isotrope, une cellule orthotrope et une cellule anisotrope. Une rotation des directions principales du fluide équivalent anisotrope est faite selon les trois angles d'Euler en configuration "ZYX" autour de $x_1$, $x_2$ et $x_3$. L'homogénéisation du poreux étant faite avant la rotation du milieu, aucune modification n'est prise en compte dans le cas isotrope. Les trois angles de rotation du cas orthotrope sont $\theta_I=15\textdegree$, $\theta_{III}=55\textdegree$ et $\theta_{II}=80\textdegree$, et dans le cas anisotrope $\theta_I=2\textdegree$, $\theta_{II}=37\textdegree$ et $\theta_{III}=60\textdegree$.
+    La méthode ayant été décrite dans la partie \ref{Ch_Inv}, il est maintenant proposé de faire une validation numérique de la méthode à partir d'un matériau poreux. Le matériau poreux, décrit sur la figure (\ref{Porous_Mat}), de longueur L=4cm selon $x_3$ et infinie dans le plan $x_1x_2$, est constitué de cellules ellipsoïdales de différentes formes. Trois cas sont étudiés ici, avec une cellule isotrope, une cellule orthotrope et une cellule anisotrope. Une rotation des directions principales du fluide équivalent anisotrope est faite selon les trois angles d'Euler en configuration "ZYX" autour de $x_1$, $x_2$ et $x_3$. La rotation du milieux est décrites dans l'annexes A (Ref). L'homogénéisation du poreux étant faite avant la rotation du milieu, aucune modification n'est prise en compte dans le cas isotrope. Les trois angles de rotation du cas orthotrope sont $\theta_I=15\textdegree$, $\theta_{III}=55\textdegree$ et $\theta_{II}=80\textdegree$, et dans le cas anisotrope $\theta_I=2\textdegree$, $\theta_{II}=37\textdegree$ et $\theta_{III}=60\textdegree$.
     
   
     Pour les trois cas, les six couples R/T sont obtenus avec un modèle de propagation fluide pour les six angles d'incidence nécessaires à la méthode. Les paramètres des trois différents fluides (isotrope, orthotrope et anisotrope) sont identifiés par la méthode inverse et comparer à ceux du fluide équivalent, dans le cas sans bruit et avec bruit rajouté à R et T. 
@@ -546,4 +560,52 @@ Afin de pouvoir identifier les densités du fluide équivalent, il est nécessai
 \chapter*{Conclusion}
 \addcontentsline{toc}{chapter}{Conclusion}  
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliography{Biblio.bib}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{Annexes}
+\section*{Annexe A : Rotation des directions principales du milieu fluide équivalent}
+\label{Ch_Ann_S_rot}
+
+    La rotation du milieu fluide équivalent anisotrope est faites selon les 3 angles d'Euler $\theta_{III}$, $\theta_{II}$ et $\theta_{I}$, représentés sur la figure (\ref{Porous_Mat}), autour des axes $x_3$, $x_2$ et $x_1$. Les trois matrices de rotation associées sont :
+    \begin{align}
+        &R_{III}=R(\theta_{III})=\begin{pmatrix} 
+                                    cos(\theta_{III}) & -sin(\theta_{III}) & 0 \\
+                                    sin(\theta_{III}) & cos(\theta_{III}) & 0 \\
+                                    0 & 0 & 1
+                                \end{pmatrix},\\
+        &R_{II}=R(\theta_{II})=\begin{pmatrix} 
+                                    cos(\theta_{II}) & 0 & +sin(\theta_{II})\\
+                                    0 & 1 & 0 \\
+                                    -sin(\theta_{II}) & 0 & cos(\theta_{II})
+                                \end{pmatrix},\\
+        &R_{I}=R(\theta_{I})=\begin{pmatrix} 
+                                    1 & 0 & 0\\
+                                    0 & cos(\theta_{I}) & -sin(\theta_{I}) \\
+                                    0 & sin(\theta_{I}) & cos(\theta_{I}) 
+                                \end{pmatrix}.\\
+    \end{align}
+    
+    Considérant  les propriétés des matrices de rotation, il est possible d'écrire la matrice de rotation global comme :
+    
+\hspace{-3cm}
+\begin{changemargin}{-2.8cm}{-1cm}
+    \begin{align}
+    R &=R_{III}*R_{II}*R_{I}\\
+      &=\begin{pmatrix}
+        cos(\theta_{II})cos(\theta_{III}) & -sin(\theta_{III})cos(\theta_{I})-sin(\theta_{I})sin(\theta_{II})cos(\theta_{III}) & sin(\theta_{I})sin(\theta_{III})-sin(\theta_{II})cos(\theta_{I})cos(\theta_{III})\\
+        sin(\theta_{III})cos(\theta_{II}) & cos(\theta_{I})cos(\theta_{III})-sin(\theta_{I})sin(\theta_{II})sin(\theta_{III}) & -sin(\theta_{I})cos(\theta_{III})-sin(\theta_{II})sin(\theta_{III})cos(\theta_{I}) \\
+        sin(\theta_{II}) & sin(\theta_{I})cos(\theta_{II}) & cos(\theta_{I})cos(\theta_{II})
+                                \end{pmatrix}.\nonumber
+    \end{align}
+\end{changemargin}
+
+    La  matrice rotation peut s'appliquer à la matrice de densité complexe, qui devient :
+    \begin{align}
+        \bar{\bar{\rho_{rot}}}=R\bar{\bar{\rho}}R^{-1}.
+    \end{align}
+    
+    
 \end{document}

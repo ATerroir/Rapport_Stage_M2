@@ -112,7 +112,6 @@ Arthur \textsc{Terroir} % Your name
 
 \newpage
 \chapter*{Introduction}
-
 \addcontentsline{toc}{chapter}{Introduction} 
 \pagenumbering{arabic} \setcounter{page}{1}
    
@@ -552,38 +551,53 @@ Afin de pouvoir identifier les densités du fluide équivalent, il est nécessai
         \label{Porous_Mat}
     \end{figure}
 
-    La méthode ayant été décrite dans la partie \ref{Ch_Inv}, il est maintenant proposé de faire une validation numérique de la méthode à partir d'un matériau poreux. Le matériau poreux, décrit sur la figure (\ref{Porous_Mat}), de longueur L=4cm selon $x_3$ et infinie dans le plan $x_1x_2$, est constitué de cellules ellipsoïdales de différentes formes. Trois cas sont étudiés ici, avec une cellule isotrope, une cellule orthotrope et une cellule anisotrope. Une rotation des directions principales du fluide équivalent anisotrope est faite selon les trois angles d'Euler en configuration "ZYX" autour de $x_1$, $x_2$ et $x_3$. La rotation du milieux est décrites dans l'annexes A (Ref). L'homogénéisation du poreux étant faite avant la rotation du milieu, aucune modification n'est prise en compte dans le cas isotrope. Les trois angles de rotation du cas orthotrope sont $\theta_I=15\textdegree$, $\theta_{III}=55\textdegree$ et $\theta_{II}=80\textdegree$, et dans le cas anisotrope $\theta_I=2\textdegree$, $\theta_{II}=37\textdegree$ et $\theta_{III}=60\textdegree$.
+    La méthode ayant été décrite dans la partie \ref{Ch_Inv}, il est maintenant proposé de faire une validation numérique de la méthode à partir d'un matériau poreux. Le matériau poreux, décrit sur la figure (\ref{Porous_Mat}), de longueur L=3cm selon $x_3$ et infinie dans le plan $x_1x_2$, est constitué de cellules ellipsoïdales de différentes formes. Trois cas sont étudiés ici, avec une cellule isotrope, une cellule orthotrope et une cellule anisotrope. Une rotation des directions principales du fluide équivalent anisotrope est faite selon les trois angles d'Euler en configuration "ZYX" autour de $x_1$, $x_2$ et $x_3$. La rotation du milieux est décrites dans l'annexes A (Ref). L'homogénéisation du poreux étant faite avant la rotation du milieu, aucune modification n'est prise en compte dans le cas isotrope. Les trois angles de rotation du cas orthotrope sont $\theta_I=15\textdegree$, $\theta_{III}=55\textdegree$ et $\theta_{II}=80\textdegree$, et dans le cas anisotrope $\theta_I=2\textdegree$, $\theta_{II}=37\textdegree$ et $\theta_{III}=60\textdegree$.
     
-  
-    Pour les trois cas, les six couples R/T sont obtenus avec un modèle de propagation fluide pour les six angles d'incidence nécessaires à la méthode. Les paramètres des trois différents fluides (isotrope, orthotrope et anisotrope) sont identifiés par la méthode inverse et comparer à ceux du fluide équivalent, dans le cas sans bruit et avec bruit rajouté à R et T. 
-
     \begin{figure}[ht!]
         \centering
         \includegraphics[scale=0.45]{RT_noise.pdf}
-        \caption{Caption}
+        \caption{Coefficient de réflection R et de transmission simulés pour un fluides équivalent anisotropes dont la matrice densité et le bulk sont représenté a gauche de la figure. Les coefficients R et T sont tracé dans le cas sans bruit (marqueurs rond) et avec un bruit introduit (ligne continue) pour un SNR de 30 dB}
         \label{RT_noise}
     \end{figure}
+    
+    Pour les trois cas, les six couples R/T sont obtenus avec un modèle de propagation fluide pour les six angles d'incidence nécessaires à la méthode. Les paramètres des trois différents fluides (isotrope, orthotrope et anisotrope) sont identifiés par la méthode inverse et comparer à ceux du fluide équivalent, dans le cas sans bruit et avec bruit rajouté à R et T. 
+    
+    Un exemple de signal bruité pour le cas du fluide équivalent anisotrope est représenté sur la figure (\ref{RT_noise}), pour les densités complexes et le bulk également représentés. Les coefficients R et T sont représentés en incidence normale, pour un SNR de 30 dB.  
+    
+    Dans un premier temps, La reconstruction des paramètres de la couche fluide  est faites dans le cas sans bruit. Ces premier résultat ne permettent pas de valider la méthode, les coefficients R et T étant calculés par le même modèle de propagation dans une couche de fluide équivalent anisotrope que pour celui utilisé pour développer la méthode inverse.  
 
+    Le premiers paramètres reconstruit par la méthode proposée est le bulk modulus en incidence normale, représenté sur la figure (\ref{bulk}) :
     \begin{figure}[ht!]
         \centering
         \includegraphics[scale=0.45]{Bulk.pdf}
-        \caption{Caption}
+        \caption{Bulk modulus reconstruit (ligne continue) et théorique(marqueurs rond), dans le cas sans bruit, pour les trois types de matériaux poreux homogénéisés, isotrope, orthotrope et anisotrope.}
         \label{bulk}
     \end{figure}
-
+    
+    Les R et T étant obtenue pour un même modèle de propagation dans une couche fluide équivalente, il vient donc logiquement que la méthode inverse retrouve les paramètres fidèlement aux paramètres en entrées. 
+    
+    Les densités complexe sont ensuite identifiées en incidence non-normale, pour les trois cas isotrope, orthotrope et anistrope. Les densités obtenues sont représentés sur la figure (\ref{rho_rot}) :
     \begin{figure}[ht!]
         \centering
         \includegraphics[scale=0.45]{Density_rot.pdf}
-        \caption{Caption}
+        \caption{Densités complexes du fluide équivalent (marqueurs rond) et reconstruites par méthode inverse  (lignes continues), dans le cas isotrope, orthotrope et anistrope, en utilisant  incidence non-nulles. Les coefficients R et T utilisé pour la reconstruction sont ici sans bruit.}
         \label{rho_rot}
     \end{figure}
     
+    De même que pour le bulk mudulus, la méthode donne une identification parfaites des densités complexes dans le cas sans bruit, conformément aux au faits d'utiliser le même modèle pour l'obtention de R et T et pour l'obtention de la méthode inverse. Une erreur est observé lors de la reconstruction de la densité dans le cas isotrope, la fréquence a laquelle elle est observé montre la possibilité de l'apparition d'une interférence de Fabry-Pérot pour une couche de longueur $L=0.03m$.
+    
+    Par un simple diagonalisation de la matrice de densité $\bar{\bar{\rho}}$, il est possible de retrouver les densités dans les directions principales. Et en utilisant des critères de rangement des valeurs propres, il est possible de retrouver, à partir des vecteurs propres triés, les angles de rotations des directions principales. Dans notre cas la fonction "rotm2eul" de $matlab^{\textregistered}$, avec comme critère de tri des valeurs propres $0<\theta_{I}<\frac{\pi}{2}$ et $0<\theta_{II}<\frac{\pi}{2}$.
+    Les densités complexes des directions principales et les angles de rotation obtenu dans les trois cas isotrope, orthotrope et anisotrope sont représentés sur la figure (\ref{rho_dir}) : 
     \begin{figure}[ht!]
         \centering
         \includegraphics[scale=0.45]{Density_dir.pdf}
-        \caption{Caption}
+        \caption{Densités dan les directions princiaples de la couche fluide équivalent (marqueurs rond) et reconstruites par méthode inverse  (lignes continues), dans le cas isotrope, orthotrope et anistrope. Les coefficients R et T utilisé pour la reconstruction sont ici sans bruit.}
         \label{rho_dir}
     \end{figure}
+    
+    La reconstruction est identique aux densités du fluide équivalent, a part pour le cas isotrope où l'on retrouve la même irrégularité que précédemment. Dans le cas anisotrope, les densités dans les directions principales sont triées le même ordre que pour le fluide équivalent et l'on retrouve les trois angles d'euler comme introduit dans le milieu étudié. Il est ici rappelé que les densités correspondent a des plans, qui sont donc $\pi$ périodique et l'on retrouve bien : $\theta_{III}=-120°=60°$. Dans le cas du fluide équivalent poreux, les densités $\rho_{II}$ et $\rho_{III}$ sont permuté en comparaison au paramètres initiaux du milieu, cette permutation peut être observé par un déphasage de $\frac{\pi}{2}$ sur l'angle $\theta_{III}$.
+    
+    
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter*{Conclusion}
@@ -592,9 +606,11 @@ Afin de pouvoir identifier les densités du fluide équivalent, il est nécessai
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliography{Biblio.bib}
+\addcontentsline{toc}{chapter}{Bibliographie} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter*{Annexes}
+\addcontentsline{toc}{chapter}{Annexe} 
 \section*{Annexe A : Rotation des directions principales du milieu fluide équivalent}
 \label{Ch_Ann_S_rot}
 

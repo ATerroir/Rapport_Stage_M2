@@ -604,27 +604,41 @@ Afin de pouvoir identifier les densités du fluide équivalent, il est nécessai
     
     \begin{figure}[ht!]
         \centering
-        \includegraphics[scale=0.38]{Bulk_noise.pdf}
+        \includegraphics[scale=0.4]{Bulk_noise.pdf}
         \caption{Identification du bulk modulus pour un fluide équivalent anisotrope à partir de coefficients R et T soumis a trois niveaux de bruit différents. Les bulk modulus identifiés (marqueurs ronds) sont comparés aux bulk modulus du fluide équivalent (ligne continue). La reconstruction dans les trois cas est pertinente à partir de 100 Hz, après la phase de transition du bulk modulus.}
         \label{bulk_noise}
     \end{figure}
     
     Le premier paramètre reconstruit est le bulk modulus, l'identification est faites dans le cas du fluide équivalent anisotrope, pour trois SNR(rapport signal sur bruit) de 20, 30 et 40 dB. Les différents bulk obtenus sont représenté sur la figure (\ref{bulk_noise}). Logiquement avec l'augmentation du niveau de bruit, l'identification devient moins performante, mais il est possible de voir deux domaines dans la reconstruction du bulk modulus. Le premiers la transition du bulk modulus à 100 Hz, où la reconstruction est relativement fidèle et le second avant la transition où même avec un faible niveau de bruit la reconstruction est fausse.
     
-    Les densités sont ensuite reconstruites dans le cas isotrope, pour les mêmes R et T.   
-\begin{figure}[ht!]
+    \begin{figure}[ht!]
         \centering
-        \includegraphics[scale=0.38]{Density_iso_noise.pdf}
-        \caption{Caption}
-        \label{fig:my_label}
+        \includegraphics[scale=0.4]{Density_iso_noise.pdf}
+        \caption{Densités reconstruites par méthode inverse, à partir de coefficients de transmission et de réflexions bruités, pour un fluide équivalent isotrope. Les densités identifiées (marqueurs rond) sont comparées aux densités du fluides équivalent (lignes continues). Les paramètres sont reconstruit pour 3 niveaux de bruit différents, SNR de 20,30 et 40dB.}
+        \label{rho_iso_noise}
     \end{figure}
-\begin{figure}[ht!]
+    Les densités sont ensuite reconstruites dans le cas isotrope, pour les mêmes niveaux de bruit. Les densités obtenues sont représentées sur la figure (\ref{rho_iso_noise}) : 
+    
+    Plusieurs observations sont faites ici, dans un premier temps le même phénomène que pour le bulk modulus  est observé, l'identification en basse-fréquence est moins efficace que en haute-fréquence, en particulier pour la densité $\rho_1$ avec une identification correct à partir de la transition du bulk modulus. L'identification de $\rho_3$ montre une bonne corrélation avec la densité du fluide équivalent même en basse-fréquence pour la partie imaginaire contrairement a précédemment, de plus il est possible de voir sur la partie réelle l'influence de la partie imaginaire largement supérieur, qui restreint l'identification de la partie réelle de $\rho_3$. Une autre observation est que pour un matériau isotrope, soit $\rho_1=rho_2$, une différence notable est observé dans la constructions de ces deux paramètres, due a leurs méthodes de détermination respectives, l'une en incidence normale ($\rho_3$) et l'autre en incidence oblique ($\rho_1$).
+    
+    En effet, la détermination en incidence oblique s'appuie sur le calcul d'une différence de phase, phase qui en basse-fréquence présente de très faible variation de part les grande longueur d'onde. Pour autant il est observé que le terme $\rho_{13}$, déduit de ce terme cette même différence est bien retrouvé nul ici, même pour des niveaux de bruit élevé (SNR=20dB).
+    
+    Les densités sont maintenant obtenues dans le cas du fluide équivalent anisotrope, le même que sans bruit, et elles sont représentées sur la figure (\ref{rho_anis_noise}) : 
+    
+    \begin{figure}[ht!]
         \centering
-        \includegraphics[scale=0.38]{Density_anis_noisy.pdf}
-        \caption{Caption} 
-        \label{fig:my_label}
+        \includegraphics[scale=0.4]{Density_anis_noisy.pdf}
+        \caption{Densités reconstruites par méthode inverse, à partir de coefficients de transmission et de réflexions bruités, pour un fluide équivalent anisotrope. Les densités identifiées (marqueurs rond) sont comparées aux densités du fluides équivalent (lignes continues). Les paramètres sont reconstruit pour 3 niveaux de bruit différents, SNR de 20,30 et 40dB.} 
+        \label{rho_anis_noise}
     \end{figure}
 
+    Les mêmes erreurs de reconstruction de la densité $\rho_3$ sont observées en basse-fréquence que pour le cas isotrope, due a la dynamique entre la partie imaginaire et réelle des densités. Cette erreur n'est faites que $\rho_3$ et n'est pas vu par $\rho_1$, possédant la même dynamique. Une remarque supplémentaire  par rapport au cas isotrope est formulé, les deux densités déterminés en incidence non-normale montre une absence de reconstruction de la partie imaginaire en basse-fréquence, où l'on peut remarquer que la décroissance de la partie imaginaire n'est pas suivie par les paramètres identifiés.
+    
+\subsection{Conclusion}
+    La méthode a pu être validée en absence de bruit, en utilisant des coefficients de transmission et réflexion R et T obtenu pour la propagation d'une onde à travers un matériau poreux anisotrope simulé. Le modèle de propagation utilisé étant le même que celui utilisé pour développer la méthode, la validation ne permet donc de valider entièrement la méthode.
+    La méthode a pu être validée avec bruit pour un domaine de fréquence supérieur a la fréquence de transition du bulk modulus, dans notre cas supérieur a 100Hz. Cette limitation basse-fréquence peut correspondre au fait que le fluide équivalent est trop resistif, $\Im(\rho)>>\Re(\rho)$, et la méthode ne permet plus donc de reconstruire.
+    
+    Un milieu poreux plus résistif à aussi pu être tésté , et comme attendu d'une méthode en réflexion/transmission, la faible transmission présente une autre limite de la méthode développée.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter*{Conclusion}
 \addcontentsline{toc}{chapter}{Conclusion}  

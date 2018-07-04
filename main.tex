@@ -1,10 +1,11 @@
-%\title{Rapport_stage_M2}
+%\title{Rapport stage M2}
 %----------------------------------------------------------------------------------------
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
 
-\documentclass[12pt]{report}
-\usepackage[english]{babel}
+\documentclass[twoside,openright]{report}
+\usepackage[francais,english]{babel}
+\usepackage[T1]{fontenc}
 \usepackage[utf8x]{inputenc}
 \usepackage[fleqn]{amsmath}
 \usepackage{amssymb}
@@ -30,9 +31,9 @@
 %%%% fin macro %%%%
 
 \begin{document}
-
+\selectlanguage{francais}
+\pagenumbering{gobble}
 \begin{titlepage}
-
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
 
 \center % Center everything on the page
@@ -49,7 +50,7 @@
 %----------------------------------------------------------------------------------------
 
 \HRule \\[0.4cm]
-{ \huge \bfseries Caractérisation et conception d'un milieu poreux anisotrope}\\[0.4cm] % Title of your document
+{ \huge \bfseries Caractérisation des fluides anisotrope : Exemple d'un matériau poreux}\\[0.4cm] % Title of your document
 \HRule \\[1cm]
  
 %----------------------------------------------------------------------------------------
@@ -58,7 +59,7 @@
 
 \begin{minipage}{0.4\textwidth}
 \begin{flushleft} \Large
-\emph{Author:}\\
+\emph{Auteur:}\\
 Arthur \textsc{Terroir} % Your name
 \end{flushleft}
 \end{minipage}
@@ -66,7 +67,7 @@ Arthur \textsc{Terroir} % Your name
 \begin{minipage}{0.1\textwidth}
 \end{minipage}
 \begin{minipage}{0.5\textwidth}
-\Large{\emph{Supervisor:} \\ Pr. Jean-Philippe \textsc{Groby}},\\
+\Large{\emph{Encadrant :} \\ Jean-Philippe \textsc{Groby}},\\
 \large Chargé de Recherche CNRS.
 \end{minipage}\\[1cm]
 
@@ -78,7 +79,7 @@ Arthur \textsc{Terroir} % Your name
 %	DATE SECTION
 %----------------------------------------------------------------------------------------
 
-{\large \today}\\[1cm] % Date, change the \today to a set date if you want to be precise
+{\large 6 juillet 2018}\\[1cm] % Date, change the \today to a set date if you want to be precise
 
 %----------------------------------------------------------------------------------------
 %	LOGO SECTION
@@ -103,10 +104,46 @@ Arthur \textsc{Terroir} % Your name
 \includegraphics[scale=0.5]{Logo_LeMansUniv.png}\\[1cm]  
 \end{minipage}
 \end{titlepage}
-%----------------------------------------------------------------------------------------
-\begin{abstract}
+\newpage
+\null
 
-\end{abstract}
+%----------------------------------------------------------------------------------------
+\newpage
+\section*{Remerciements}
+    
+    J'adresse mes remerciements à toutes les personnes qui m'ont aidé durant la réalisation de mon stage.
+    
+    
+    En tout premier lieu, je remercie M. Jean-Philippe Groby, chargé de recherche CNRS. En tans qu'encadrant, il a été présent et m'a guidé lors de mon stage.
+    
+    
+    Je tiens aussi a remercier M. Théo Cavaliéri, doctorant, M. Logan Schwan, post-doctorant et M. Vicent Romero-Garcia pour leur collaboration lors de ce stage et du temps qu'ils ont su m'accorder.
+    
+    
+    Je remercie M. Olivier Dazel, professeur des universités et M. Olivier Richoux, professeur des universités en tans que respectivement responsable de mon Master 1 et 2, pour leurs disponibilités et leurs soutiens.
+    
+    
+    Je remercie M. Pierrick Lotton, directeur de recherche et M. Mathieu Gaborit, doctorant, pour avoir permit ma participation aux CFA 2018 aux Havre.
+    
+    
+    Enfin je remercie tout les stagiaires, Ronan Delalande, Gautier Gillot, Nathalie Lamothe, Meryem Le Deunf, Erwan Meteyer, Théo Threard,  pour la bonne ambiance et leur aide au cours de ce stage.
+    
+\newpage
+\null
+%----------------------------------------------------------------------------------------
+\newpage
+\section*{Résumé}
+    Les milieux complexes, matériaux poreux, métamatériaux, de part leurs inhomogénéités a petite échelle sont difficiles a caractériser. Des modèles d'homogénéisation sont donc utilisés pour les décrire en terme de paramètres effectifs, paramètres définit pour un volume homogène dans l'hypothèse grande longueur d'onde. Ces milieux effectifs, en général anisotrope, sont calculés, soit en utilisant les paramètres intrinsèques du système, difficile a déterminer, soit reconstruit à partir de mesure en réflexion/transmission. Ces techniques se base sur un modèle de propagation inverse d'une onde plane dans un fluide. Il existe dans le cas de matériaux anisotropes, des techniques prenant en compte des  anisotropies axisymétriques aux directions du problème, où des anisotropies arbitraires 2D.
+    La méthode ici proposé cherche a étendre le concept de ses techniques dans le cas d'une anisotropie 3D. Cette méthode est validé numériquement avec un matériau poreux homogénéisé part le modèle JCAL.  
+    
+
+\section*{Abstract}
+    Metamaterial and pourous media are difficult to characterize due to their small scale inhomogeneity, homogeneisation scheme are devellop to allow to see this medium as homogeneous equivalent media. the parameters of this equivalent media, often anisotropic, can be derive using intrinsic parameters of the studied material, or can retrieve using transmission/reflexion method. This parameters retrieval method use an inverse propagation method, are devellop for anisotropic material with anisotropic direction coinciding with this axes of the problem. A method to retrieve the effective parameters using the reflexion and transmission coefficients also existed for 2D anisitropic arbitrary material.
+    It's propsed in this report to extend this existing method to a 3D arbitrary anisotropic. A numerical validation for an anisotropic porous material is done.
+    
+    
+\newpage
+%----------------------------------------------------------------------------------------
 \tableofcontents
 \listoffigures
 
@@ -115,24 +152,39 @@ Arthur \textsc{Terroir} % Your name
 \addcontentsline{toc}{chapter}{Introduction} 
 \pagenumbering{arabic} \setcounter{page}{1}
    
+    Les milieux complexes, milieux poreux, cristaux phononiques où photoniques, métamatériaux, font l'objet d'une recherche intense de part leurs capacités a modifier la propagation des ondes élastiques et électromagnétiques. Des propriétés inhabituelles ont pu être découvert pour ceux-ci, e.g (\cite{Liu2000}\cite{Fang}\cite{Pendry}\cite{Cummer}), permettant des bandes interdites en fréquence, où de contrôler la propagation des ondes (cloaking, matériaux a module négatif).
+    
+    Les structures les composant étant très complexes, périodiques en général pour les métamatériaux et cristaux, et aléatoire dans le cas des matériaux poreux, des paramètres effectifs sont définis pour pouvoir les caractériser. Ces paramètres sont définis comme des paramètres homogènes macroscopiques, pour des longueurs d'onde ignorant les inhomogénéités microstructurales. De part ces paramètres il est possible de décrire les milieux complexes comme des fluides équivalents qui se trouve généralement être anisotropes. Ces paramètres peuvent être obtenus de part les paramètres caractéristiques du matériau, par exemple pour un poreux, dans le cas de matériau non-résonant, avec le modèle Johnson-Champoux-Allard-Lafarge (\cite{Johnson}\cite{Allard}\cite{Lafarge}). 
+    
+    Les caractéristiques intrinsèques étant difficile a obtenir, des méthodes de propagation inverse ont été développées utilisant la réflexion/transmission afin d'obtenir les paramètres effectifs du matériau. Les paramètres effectifs sont déduis des coefficients de réflexion et transmission, en inversant la matrice de transfert du milieu équivalent théoriquement connu. Ces méthodes ont d'abord été utilisées pour l'électromagnétisme dans le cas isotrope (\cite{Nicolson}\cite{WEIR}\cite{Markos}\cite{Smith}). Une transcription de ces méthodes dans le domaine acoustique existe, permettant une identification des paramètres effectifs dans un cas isotrope\cite{Fokin2007}, ainsi que dans le cas d'une anisotropie 2D\cite{Zigoneanu2011}, en connaissant les directions d'anistropie.
+    Une méthode reprenant les travaux précédant à été proposé par Castanié\cite{Castanie}, permettant dans le même cas d'une anistropie 2D, la mesure en réflexion/transmission pour une incidence oblique des paramètres effectif, sans connaître la direction d'anisotropie. 
+    
+    L'avantage des méthodes inverses proposés est principalement d'éviter le calcul mathématique des paramètres effectif qui peut s'avérer compliqué dans des cas où le matériau étudié n'est pas forcément connu où est trop complexe.
+    
+    Il est proposé dans ce papier d'étendre a un cas 3D la méthode proposée par Castanié, en reprenant la même démarche de propagation inverse en se basant sur la connaissance de la matrice de transfère du fluide anisotrope. Le matériau est considéré comme inconnu, et seul les paramètres liés a al mesure seront supposés prédéterminés (épaisseur matériau, milieu hôte, ...).
+    
+    Ce rapport est présenté en quatre parties, la première traite de la réflexion et transmission d'une onde plane dans un fluide anisotrope, permettant de connaître analytiquement la matrice de transfert du milieu. La seconde traite de la détermination des coefficients de réflexion et transmission connaissant la matrice de transfert du milieu. Dans la troisième partie, la méthode inverse visant retrouvé les paramètres effectifs du fluides est développée. Et finalement la méthode est validée dans le cas d'un poreux simulé homogénéisé par le modèle JCAL.
+    
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\chapter{Propagation dans une couche de fluide équivalent anisotrope}
+\chapter{Réflexion et transmission d'une onde plane par une couche de fluide anisotrope}
 \label{Ch_Prop}
 \section{Problème de propagation dans le milieu fluide équivalent}
 \label{Ch_Prop_S_Pb}
 \subsection{Problème étudié}
 \label{Ch_Prop_S_Pb_SS_Pb}
-    Le problème étudié dans cette méthode est un problème de propagation dans un milieu fluide équivalent anisotrope, de dimension infinie dans le plan $x_1x_2$ et L selon $x_3$.  La situation est présentée sur la figure \ref{Schema}:
+    Le problème étudié dans cette méthode est un problème de propagation dans une couche de fluide équivalent anisotrope, de dimension infinie dans le plan $x_1x_2$ et de longueur L selon $x_3$, comme présentée sur la fig. \ref{Schema} :
     \begin{figure}[ht!]
     \centering
     \includegraphics[scale=1]{Fig3D.pdf}
-    \caption{Réflexion et transmission dans un milieu fluide équivalent anisotrope. Le milieux est supposé infini dans le plan $x_1x_2$ et de dimension L selon $x_3$. Le fluide est excité avec une onde plane harmonique à l'interface $x_3=L$ et l'on observe une onde transmise en $x_3=0$. }
+    \caption{Réflexion et transmission par une lame de fluide équivalent anisotrope. Le milieux est supposé infini dans le plan $x_1x_2$ et d'épaisseur L selon $x_3$. Le fluide est excité avec une onde plane harmonique à l'interface $x_3=L$ et l'on observe une onde transmise en $x_3=0$. }
     \label{Schema}
     \end{figure}
     
-    Dans ce problème on s'intéresse aux ondes réfléchies et transmises, soit au coefficient de réflexion et transmission R et T, pour une propagation le long de la direction $x_3$.
-    Le fluide est considéré comme anisotrope et, dans le cas de notre étude, hors de ses directions principales. Le milieux étant un fluide équivalent, quelques observations sont à faire, dans un premier temps les grandeurs observées (bulk modulus, denisté) sont considérées comme complexes, dû à la considération de perte. Dans un second temps, ces mêmes grandeurs sont dépendantes de la fréquence.
-    Il est donc possible de décrire la couche fluide avec une matrice de densité complexe telle que :
+    Deux systèmes de coordonnés sont distingué dans le problème abordé, le système lié à la lame de de fluide représenté en chiffre arabe $x_1$, $x_2$ et $x_3$, et le système lié aux directions principales du fluide représenté par des chiffres romains $x_I$, $x_{II}$ et $x_{III}$.  
+    
+    Dans ce problème on s'intéresse aux coefficients de réflexion R et de transmission T.
+    Le fluide est considéré comme anisotrope et dans le cas de notre étude les coordonnées de notre système ne coïncide pas avec les directions principales. Le milieu étant un fluide équivalent, quelques observations sont à faire : dans un premier temps les grandeurs observées (module de compressibilité, denisté) sont considérées comme complexes, dû à la prise en compte des pertes viscothermiques. Dans un second temps, ces mêmes grandeurs sont dépendantes de la fréquence.
+    Il est donc possible de décrire le matériau constitué par la couche fluide avec une matrice de densité complexe telle que :
     \begin{align}
     \bar{\bar{\rho}}=\begin{pmatrix}
     					\rho_{11} & \rho_{12} & \rho_{13} \\
@@ -140,13 +192,13 @@ Arthur \textsc{Terroir} % Your name
                         \rho_{13} & \rho_{23} & \rho_{33}                       
     				 \end{pmatrix}.
     \end{align}
-    et d'un bulk modulus $K$.
+    et un module de compressibilité $K$.
     
-    Le milieu est excité par une onde plane harmonique, d'amplitude 1, de pulsation $\omega$, d'angle d'incidence d'élévation $\theta$ et azimutal $\phi$. Les projections du nombre d'onde $k^{(0)}$ peuvent donc s'exprimer comme : 
+    Le milieu est excité par une onde plane harmonique, d'amplitude unitaire, de pulsation $\omega$, d'angle d'incidence d'élévation $\theta$ et azimutal $\phi$. Les projections du nombre d'onde $k^{(0)}$ dans le milieu hôte peuvent donc s'exprimer comme : 
     \begin{align}
     &k_1=-k_0 sin(\theta) cos(\phi),\label{k1} \\
     &k_2=-k_0 sin(\theta) sin(\phi),\label{k2} \\
-    &k_3= -k_0 cos(\theta),\label{k3}
+    &k_3= -k_0 cos(\theta).\label{k3}
     \end{align}
         
         Le problème étant posé on s'intéresse maintenant au problème de propagation.
@@ -155,66 +207,67 @@ Arthur \textsc{Terroir} % Your name
 \label{Ch_Prop_S_Pb_SS_Eul}
     Les équations constitutives suivantes sont considérées :
     \begin{align}
-	&\rho \frac{\partial}{\partial t}v=-\nabla p,\label{Const1} \\
-	&\frac{\partial}{\partial t}p=-K\nabla v.\label{Const2}
+	&\bar{\bar{\rho}} \frac{\partial}{\partial t}\bar{v}=-\nabla p,\label{Const1} \\
+	&\frac{\partial}{\partial t}p=-K\nabla \bar{v}.\label{Const2}
     \end{align}
-    Les solutions à ces équations dans la couche fluide sont supposées être  des ondes planes harmoniques telles que, en posant la convention temporelle $e^{i\omega t}$, l'on puisse écrire dans le domaine $0<x_3<L$ :
+    Les solutions de ces équations dans la couche fluide sont supposées être  des ondes planes harmoniques telles que, en posant la convention temporelle $e^{-i\omega t}$, l'on puisse écrire dans le domaine $0<x_3<L$ :
     \begin{align}
         \xi=\tilde{\xi}e^{i(k_1 x_1+k_2 x_2)}e^{-i\omega t}\label{Convention_k_t}
     \end{align}
-    Le vecteur d'état $\bar{S}$ est ici introduit tel que $\bar{S}=\begin{pmatrix} p \\ v_3 \end{pmatrix}$, $\bar{S}$ permet de caractériser la propagation le long de la direction $x_3$, et ainsi d'obtenir la matrice de transfère $Tr$ du fluide entre les deux interfaces.
+    Le vecteur d'état $\bar{S}$ est ici introduit tel que $\bar{S}=\begin{pmatrix} p \\ v_3 \end{pmatrix}$. Le vecteur d'état $\bar{S}$ permet de caractériser la propagation le long de la direction $x_3$, et ainsi d'obtenir la matrice de transfère $\Pi$ du fluide entre les deux interfaces.
     
     En introduisant un champs de pression de la forme (\ref{Convention_k_t}) dans les équations (\ref{Const1}) et (\ref{Const2}), il vient :
     \begin{align}
-	&ik_ip=\sum_{j=1}^{3} i \omega \rho_{ij} v_j,\ i=1,2\label{Euler1}\\
-	&\frac{\partial}{\partial x_3}p=\sum_{j=1}^{3} i \omega \rho_{3j} v_j\label{Euler2}\\
-    &i\omega p= iK(k_1v_1+k_2v_2+\frac{\partial}{\partial x_3}v_3).\label{Euler3}
+	&ik_ip=\sum_{\displaystyle{j=1}}^{\displaystyle{3}} i \omega \rho_{ij} v_j,\ i=1,2\label{Euler1}\\
+	&\frac{\displaystyle{\partial}}{\displaystyle{\partial x_3}}p=\sum_{\displaystyle{j=1}}^{\displaystyle{3}} i \omega \rho_{3j} v_j\label{Euler2}\\
+    &i\omega p= iK(k_1v_1+k_2v_2+\frac{\displaystyle{\partial}}{\displaystyle{\partial x_3}}v_3).\label{Euler3}
     \end{align}
 	En utilisant l'expression (\ref{Euler1}), il est possible d'écrire $v_1$ et $v_2$ en fonction de $p$ et $v_3$, comme :
     \begin{align}
-	v_1=\frac{1}{\rho_{11}-\frac{\rho_{12}^2}{\rho_{22}}}([\frac{k_1}{\omega}-\frac{\rho_{12}}{\rho_{22}}\frac{k_2}{\omega}]p+[\frac{\rho_{12}}{\rho_{22}}\rho_{23}-\rho_{13}]v_3), \\
-	v_2=\frac{1}{\rho_{22}-\frac{\rho_{12}^2}{\rho_{11}}}([\frac{k_2}{\omega}-\frac{\rho_{12}}{\rho_{11}}\frac{k_1}{\omega}]p+[\frac{\rho_{12}}{\rho_{11}}\rho_{13}-\rho_{23}]v_3).
+	v_1=\frac{1}{\displaystyle{\rho_{11}-\frac{\rho_{12}^2}{\rho_{22}}}}([\frac{k_1}{\omega}-\frac{\rho_{12}}{\rho_{22}}\frac{k_2}{\omega}]p+[\frac{\rho_{12}}{\rho_{22}}\rho_{23}-\rho_{13}]v_3), \\
+	v_2=\frac{1}{\displaystyle{\rho_{22}-\frac{\rho_{12}^2}{\rho_{11}}}}([\frac{k_2}{\omega}-\frac{\rho_{12}}{\rho_{11}}\frac{k_1}{\omega}]p+[\frac{\rho_{12}}{\rho_{11}}\rho_{13}-\rho_{23}]v_3).
     \end{align}
- 	Ce qui permet d'exprimer $\frac{\partial}{\partial x_3}v_3$ et $\frac{\partial}{\partial x_3}p$ comme $\frac{\partial}{\partial x_3}v_3(p,v_3)$ et $\frac{\partial}{\partial x_3}p(p,v_3)$, en introduisant ces expressions dans les équations (\ref{Euler2}) et (\ref{Euler3}), il est donc possible d'écrire :
+ 	Ce qui permet d'exprimer $\frac{\displaystyle{\partial}}{\displaystyle{\partial x_3}}v_3$ et $\frac{\displaystyle{\partial}}{\displaystyle{\partial x_3}}p$ comme $\frac{\displaystyle{\partial}}{\displaystyle{\partial x_3}}v_3(p,v_3)$ et $\frac{\displaystyle{\partial}}{\displaystyle{\partial x_3}}p(p,v_3)$, en introduisant ces expressions dans les équations (\ref{Euler2}) et (\ref{Euler3}), il est donc possible d'écrire :
     \begin{align*}
-    \frac{\partial}{\partial x_3}v_3=&[\frac{i\omega}{K}-\frac{ik_1}{\rho_{11}-\frac{\rho_{12}^2}{\rho_{22}}}(\frac{k_1}{\omega}-\frac{\rho_{12}}{\rho_{22}}\frac{k_2}{\omega})-\frac{ik_2}{\rho_{22}-\frac{\rho_{12}^2}{\rho_{11}}}(\frac{k_2}{\omega}-\frac{\rho_{12}}{\rho_{11}}\frac{k_1}{\omega})]p\\
+    \frac{\displaystyle{\partial}}{\displaystyle{\partial x_3}}v_3=&[\frac{i\omega}{K}-\frac{ik_1}{\rho_{11}-\frac{\rho_{12}^2}{\rho_{22}}}(\frac{k_1}{\omega}-\frac{\rho_{12}}{\rho_{22}}\frac{k_2}{\omega})-\frac{ik_2}{\rho_{22}-\frac{\rho_{12}^2}{\rho_{11}}}(\frac{k_2}{\omega}-\frac{\rho_{12}}{\rho_{11}}\frac{k_1}{\omega})]p\\
     &-[\frac{ik_1}{\rho_{11}-\frac{\rho_{12}^2}{\rho_{22}}}(\frac{\rho_{12}}{\rho_{22}}\rho_{23}-\rho_{13})+\frac{ik_2}{\rho_{22}-\frac{\rho_{12}^2}{\rho_{11}}}(\frac{\rho_{12}}{\rho_{11}}\rho_{13}-\rho_{23})]v_3,
     \end{align*}
     et 
     \begin{align*}
-    \frac{\partial}{\partial x_3}p=&[\frac{i\omega \rho_{13}}{\rho_{11}-\frac{\rho_{12}^2}{\rho_{22}}}(\frac{k_1}{\omega}-\frac{\rho_{12}}{\rho_{22}}\frac{k_2}{\omega})+\frac{i\omega \rho_{23}}{\rho_{22}-\frac{\rho_{12}^2}{\rho_{11}}}(\frac{k_2}{\omega}-\frac{\rho_{12}}{\rho_{11}}\frac{k_1}{\omega})]p\\
+    \frac{\displaystyle{\partial}}{\displaystyle{\partial x_3}}p=&[\frac{i\omega \rho_{13}}{\rho_{11}-\frac{\rho_{12}^2}{\rho_{22}}}(\frac{k_1}{\omega}-\frac{\rho_{12}}{\rho_{22}}\frac{k_2}{\omega})+\frac{i\omega \rho_{23}}{\rho_{22}-\frac{\rho_{12}^2}{\rho_{11}}}(\frac{k_2}{\omega}-\frac{\rho_{12}}{\rho_{11}}\frac{k_1}{\omega})]p\\
     &+[\frac{i\omega \rho_{13}}{\rho_{11}-\frac{\rho_{12}^2}{\rho_{22}}}(\frac{\rho_{12}}{\rho_{22}}\rho_{23}-\rho_{13})+\frac{i\omega \rho_{23}}{\rho_{22}-\frac{\rho_{12}^2}{\rho_{11}}}(\frac{\rho_{12}}{\rho_{11}}\rho_{13}-\rho_{23})]v_3.
     \end{align*}
     
     Sous forme matricielle, il est possible d'exprimer la matrice de propagation $\bar{\bar{A}}$ permettant de décrire l'évolution du vecteur d'état $\bar{S}$. Le problème de propagation prend donc la forme suivante :
     \begin{align}
-    \frac{\partial}{\partial x_3}\bar{S} = \bar{\bar{A}} \bar{S},\label{Equa_diff}
+    \frac{\displaystyle{\partial}}{\displaystyle{\partial x_3}}\bar{S} = \bar{\bar{A}} \bar{S},\label{Equa_diff}
     \end{align}
     avec $\bar{\bar{A}}$ la matrice de propagation telle que :
      \begin{align}
      &\bar{\bar{A}}=\begin{pmatrix}
-    				A_{11} & A_{12} \\ A_{21} & A{22}
+    				A_{11} & A_{12} \\ A_{21} & A_{22}
     			\end{pmatrix}\label{Matrice_complete},\\ 
+     \intertext{où :}
      &A_{11}=A_{22}=i[\frac{\rho_2\rho_{13}-\rho_{12}\rho_{23}}{\rho_1\rho_2-\rho_{12}^2}k_1+\frac{\rho_1\rho_{23}-\rho_{12}\rho_{13}}{\rho_1\rho_2-\rho_{12}^2}k_2], \\
      &A_{12}=i\omega \rho_3[1-\frac{\rho_{13}}{\rho_1\rho_2-\rho_{12}^2}(\frac{k_1^{(i)}}{k_3^{(i)}})^2(\rho_2-\rho_{12}(\frac{k_2^{(i)}}{k_1^{(i)}})^2)-\frac{\rho_{23}}{\rho_1\rho_2-\rho_{12}^2}(\frac{k_2^{(i)}}{k_3^{(i)}})^2(\rho_1-\rho_{12}(\frac{k_1^{(i)}}{k_2^{(i)}})^2)], \\
      &A_{21}=\frac{i\omega}{K}[1-\frac{\rho_3}{\rho_1\rho_2-\rho_{12}^2}(\frac{k_1}{k_3^{(i)}})^2(\rho_2-\rho_{12}\frac{k_2}{k_1})-\frac{\rho_3}{\rho_1\rho_2-\rho_{12}^2}(\frac{k_2}{k_3^{(i)}})^2(\rho_1-\rho_{12}\frac{k_1}{k_2})],
     \end{align}
-    ou $k_m^{(i)},\ i=1,2,3$ sont des nombres d'onde effectifs selon la direction $x_i$, ne dépendant pas de la fréquence et de l'angle d'incidence.
+    avec $k_m^{(i)}=\omega\sqrt{\frac{\rho_{i3}}{K}},\ i=1,2,3$ sont des nombres d'onde effectif selon la direction $x_i$, ne dépendant pas de la fréquence et de l'angle d'incidence.
     
-	L'expression (\ref{Matrice_complete}) permet de décrire quatre paramètres liés à la propagation dans la couche fluide équivalente anisotrope, un Bulk modulus équivalent effectif $\tilde{K}$ lié à la direction de propagation et au Bulk modulus équivalent, une densité effective $\tilde{\rho_3}$ liée à la propagation des ondes selon $x_3$, et deux termes de phase $q_1$ et $q_2$, respectivement liés à $k_1$ et $k_2$, issus du couplage induit par les termes extra-diagonaux. Ces paramètres sont décrits ci-dessous :
+	L'expression (\ref{Matrice_complete}) permet de décrire quatre paramètres liés à la propagation dans la couche fluide équivalente anisotrope : un module de compressibilité équivalent effectif $\tilde{K}$ lié à la direction de propagation et au module de compressibilité équivalent, une densité effective $\tilde{\rho_3}$ liée à la propagation des ondes selon $x_3$, et deux termes de phase $q_1$ et $q_2$, respectivement liés à $k_1$ et $k_2$, issus du couplage induit par les termes extra-diagonaux. Ces paramètres sont décrits ci-dessous :
     \begin{align}
      &\tilde{K}=\frac{K}{[1-\frac{\rho_{33}}{\rho_{11}\rho_{22}-\rho_{12}^2}(\frac{k_1}{k_3^{(i)}})^2(\rho_{22}-\rho_{12}\frac{k_2}{k_1})-\frac{\rho_{33}}{\rho_{11}\rho_{22}-\rho_{12}^2}(\frac{k_2}{k_3^{(i)}})^2(\rho_{11}-\rho_{12}\frac{k_1}{k_2})]}\label{Ktild},\\
      &\tilde{\rho_3}=\rho_{33}[1-\frac{\rho_{13}}{\rho_{11}\rho_{22}-\rho_{12}^2}(\frac{k_1^{(i)}}{k_3^{(i)}})^2(\rho_{22}-\rho_{12}(\frac{k_2^{(i)}}{k_1^{(i)}})^2)-\frac{\rho_{23}}{\rho_{11}\rho_{22}-\rho_{12}^2}(\frac{k_2^{(i)}}{k_3^{(i)}})^2(\rho_{11}-\rho_{12}(\frac{k_1^{(i)}}{k_2^{(i)}})^2)]\label{rho3tild}, \\
 	&q_{1}=\frac{\rho_{22}\rho_{13}-\rho_{12}\rho_{23}}{\rho_{11}\rho_{22}-\rho_{12}^2}k_1\label{q1},\\
     &q_{2}= \frac{\rho_{11}\rho_{23}-\rho_{12}\rho_{13}}{\rho_{11}\rho_{22}-\rho_{12}^2}k_2\label{q2}.
           \end{align}
-    Quelques commentaires peuvent être formulés à propos des ces paramètres, un premier point est que conformément à des paramètres effectifs, dans un cas isotrope, on retrouve  $\tilde{K}=K$ et $\tilde{\rho_3}=\rho_3$. Il est possible de remarquer, que quelque soit l'anisotropie, en incidence normale, $\tilde{K}=K$. Une autre remarque importante est de voir que $\tilde{\rho_3}$ est indépendant de l'angle d'incidence de l'excitation, contrairement à $\tilde{K}$. Les termes de phase $q_1$ et $q_2$ semblent traduire la variation de phase lors de la transmission de phase due au couplage induit par les densités extra-diagonales, et notamment $\rho_{13}$ et $\rho_{23}$  qu'on pourrait voir comme une rotation du plan principale $x_Ix_{II}$.
+    Quelques commentaires peuvent être formulés à propos de ces paramètres, un premier point est que, dans un cas isotrope, on retrouve  $\tilde{K}=K$ et $\tilde{\rho_3}=\rho_3$. Il est possible de remarquer, que quelque soit l'anisotropie, en incidence normale, $\tilde{K}=K$. Une autre remarque importante est de voir que $\tilde{\rho_3}$ est indépendant de l'angle d'incidence de l'excitation, contrairement à $\tilde{K}$. Les termes de phase $q_1$ et $q_2$ traduisent la variation de phase lors de la transmission de phase due au couplage induit par les densités extra-diagonales, et notamment $\rho_{13}$ et $\rho_{23}$  qu'on pourrait voir comme une rotation du plan principale $x_Ix_{II}$.
     
     Finalement, l'équation différentielle (\ref{Equa_diff}) amène à l'expression suivante : 
     \begin{align}
     \bar{S}_{(L)}=e^{\bar{\bar{A}}L}\bar{S}_{(0)}.\label{PB}
     \end{align}
-    La matrice de transfère $Tr$ peut donc être déduite comme $Tr=e^{\bar{\bar{A}}L}$. Si l'expression analytique de la matrice de transfère est connue, c'est-a-dire que l'on puisse diagonaliser la matrice de propagation $\bar{\bar{A}}$, il est alors possible en posant des conditions aux frontières de résoudre le problème réflexion/transmission dans le milieu fluide.
+    La matrice de transfère $\Pi$ peut donc être déduite comme $\Pi=e^{\bar{\bar{A}}L}$. Si l'expression analytique de la matrice de transfère est connue, c'est-a-dire qu'il est possible de diagonaliser la matrice de propagation $\bar{\bar{A}}$, il est alors possible en posant des conditions aux frontières de résoudre le problème réflexion/transmission dans le milieu fluide.
     
     Le calcul de la matrice de transfère du système passe donc par la diagonalisation de $\bar{\bar{A}}$, qui s'écrit :
     \begin{align}
@@ -222,8 +275,14 @@ Arthur \textsc{Terroir} % Your name
     								-ik_{33}+i\tilde{q} & 0 \\ 0 & ik_{33}+i\tilde{q} 
     							\end{pmatrix} \bar{\bar{U^{-1}}}.
     \end{align}
-    avec $\tilde{q}=q_1+q_2$ le terme de phase global du système, $k_{33}=\frac{\omega}{c_{33}}$ le nombre d'onde effectif selon $x_3$, $c_{33}=\sqrt{\frac{\tilde{K}}{\tilde{\rho_3}}}$ la célérité dans la direction $x_3$.
-    Les vecteurs propres s'écrivent :
+    avec $\tilde{q}$ le terme de phase global du système, $k_{33}$ le nombre d'onde effectif selon $x_3$, $Z_3$ l'impédance effective du milieu fluide et $c_{33}$ la célérité dans la direction $x_3$, tels que :
+    \begin{align}
+        &\tilde{q}=q_1+q_2,\label{def:qtild}\\
+        &k_{33}=\frac{\omega}{c_{33}},\label{def:k33}\\
+        &Z_3=\tilde{\rho_3}c_{33},\label{def:Z3}\\
+        &c_{33}=\sqrt{\frac{\tilde{K}}{\tilde{\rho_3}}}.\label{def:c33}
+    \end{align}
+    La matrice des vecteurs propres s'écrit :
     \begin{align}
     &\bar{\bar{U}}=\frac{1}{\sqrt{2}}\begin{pmatrix}
     					Z_3 & Z_3 \\ -1 & 1
@@ -232,10 +291,9 @@ Arthur \textsc{Terroir} % Your name
     					1 & -Z_3 \\ 1 & Z_3
     		   						\end{pmatrix},           
     \end{align}
-    avec $Z_3=\tilde{\rho_3}c_{33}$ l'impédance effective du milieu fluide.
-    La matrice de transfère $Tr$ peut donc s'écrire :
+    La matrice de transfère $\Pi$ s'écrit donc :
         \begin{align}
-    Tr=\bar{\bar{U}}\begin{pmatrix}
+    \Pi=\bar{\bar{U}}\begin{pmatrix}
     e^{-ik_{33}L} & 0 \\ 0 & e^{-ik_{33}L} 
     \end{pmatrix} e^{i\tilde{q}L}\bar{\bar{U^{-1}}}\label{Matrice_Transfere}
     \end{align}
@@ -244,50 +302,50 @@ Arthur \textsc{Terroir} % Your name
 \label{Ch_Prop_S_Pb_SS_BC}
     L'onde incidente excitant la couche de fluide équivalent a l'interface $x_3=L$ est supposé de la forme :
     \begin{align}
-    p_{(L)}=p\big{|}_{x=L}=1*e^{-i k_3(x_3-L)}+R e^{i k_3(x_3-L)}.
+    p_{(L)}=p\big{|}_{x=L}=e^{-i k_3(x_3-L)}+R e^{i k_3(x_3-L)}.
     \end{align}
     De même l'onde transmise à l'interface $x_3=0$ est de la forme : 
     \begin{align}
     p_{(0)}=p\big{|}_{x=0}=Te^{-ik_3x}.
     \end{align}
 
-    La matrice de transfert du milieu étant connue, il faut donc maintenant poser des conditions frontières, dans notre problème on s'intéresse aux ondes réfléchies et transmises lors de la propagation d'une onde dans la couche fluide équivalente anisotrope. Les conditions limites sont donc posées telles que :
+    La matrice de transfert du milieu étant connue, il faut donc maintenant poser des conditions frontières : Dans notre problème on s'intéresse aux ondes réfléchies et transmises lors de la propagation d'une onde plane dans la couche fluide équivalente anisotrope. Les conditions limites sont donc posées telles que :
     \begin{align}
     &\bar{S}_{x_3=L}=\bar{S}_{(L)}=\begin{pmatrix}
     						p_L \\ v_L
     					\end{pmatrix} = \begin{pmatrix}
-    										1+R \\ -\frac{k_3}{\rho \omega}(1-R),
+    										1+R \\ -\frac{\displaystyle{k_3}}{\displaystyle{\rho \omega}}(1-R),
     									\end{pmatrix},\label{BC_L} \\
   	&\bar{S}_{x_3=0}=\bar{S}_{(0)}=\begin{pmatrix}
     						p_0 \\ v_0
     					\end{pmatrix} =\begin{pmatrix}
-    						T \\ -\frac{k_3}{\rho \omega}T,
+    						T \\ -\frac{\displaystyle{k_3}}{\displaystyle{\rho \omega}}T,
     					\end{pmatrix}.\label{BC_0}
     \end{align}    
-     Les conditions choisies aux interfaces $x_3=0$ et $x_3=L$, sont telles que les ondes réfléchies et transmises aient un phase nulle, autrement dit, il est considéré que les coefficients R et T contiennent une information d'amplitude et de phase.    
+     Les conditions choisies aux interfaces $x_3=0$ et $x_3=L$, sont telles que les ondes réfléchies et transmises ont un phase nulle à l'interface.
         
 \subsection{Problème à résoudre}    
     Si l'on introduit les expressions (\ref{Matrice_Transfere}), (\ref{BC_L}) et (\ref{BC_0}) dans l'équation (\ref{PB}), le problème de propagation peut donc s'écrire :
     \begin{align}
         \begin{pmatrix}
-    	    1+R \\ -\frac{k_3}{\rho \omega}(1-R)
+    	    1+R \\ -\frac{\displaystyle{k_3}}{\displaystyle{\rho \omega}}(1-R)
     	\end{pmatrix}=\bar{\bar{U}}\begin{pmatrix}
                         e^{-ik_{33}L} & 0 \\ 0 & e^{+ik_{33}L} 
                       \end{pmatrix} e^{i\tilde{q}L}\bar{\bar{U^{-1}}}\begin{pmatrix}
-    					                            	T \\ -\frac{k_3}{\rho \omega}T
+    					                            	T \\ -\frac{\displaystyle{k_3}}{\displaystyle{\rho \omega}}T
     				                                        	\end{pmatrix}.\label{Eq_Prop}
     \end{align}
 
-    Le calcul de la fonction de transfert, et de R et T, peut être fait numériquement, en amont sans diagonaliser la matrice de propagation $\bar{\bar{A}}$, à partir de l'expression (\ref{Equa_diff}), mais cette méthode ne donne pas de forme analytique de ceci, ce qui ne permet pas d'établir une méthode inverse, et d'avoir des a priori sur R et T. C'est donc la dernière forme de l'équation de propagation (\ref{Eq_Prop}) qui est utilisée, pour dans un premier temps obtenir les coefficients de réflexion et transmission pour une couche fluide anisotrope excitée par une onde plane harmonique, puis pour identifier les paramètres de la couche fluide par méthode inverse.
+    Le calcul de la fonction de transfert, de R, et T, peut être fait numériquement, en amont sans diagonaliser la matrice de propagation $\bar{\bar{A}}$, à partir de l'expression (\ref{Equa_diff}), mais cette méthode ne donne pas de forme analytique de ceux-ci, ce qui ne permet pas de surcroît d'établir une méthode inverse, et d'avoir des a priori sur R et T. C'est donc la dernière forme de l'équation de propagation (\ref{Eq_Prop}) qui est utilisée, pour dans un premier temps obtenir les coefficients de réflexion et transmission d'une couche fluide anisotrope excitée par une onde plane harmonique, puis pour identifier les paramètres de la couche fluide par méthode inverse.
     
-    On s'attachera dans les partie suivante à traiter le problème direct, la détermination de R et T connaissant le fluide. Puis l'identification des paramètres du fluide équivalent (densité et bulk modulus) connaissant R et T pour différents angles d'incidence. Finalement une validation numérique de la méthode est faite dans le cas d'une couche de matériau poreux, homogénéisé en fluide équivalent par le modèle Jhonson-Champoux-Allard-Lafarge (citation). 
+    On s'attachera dans les partie suivante à traiter le problème direct, la détermination de R et T connaissant le fluide. Puis l'identification des paramètres du fluide équivalent (densité et module de compressibilité) connaissant R et T pour différents angles d'incidence. Finalement une validation numérique de la méthode est réalisé dans le cas d'une couche de matériau poreux, homogénéisé en fluide équivalent par le modèle Johnson-Champoux-Allard-Lafarge (\cite{Johnson}\cite{Lafarge}\cite{Allard}). 
     
    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Problème direct : coefficient de réflexion et transmission R et T}
 \label{Ch_Dir}
     Les  coefficients R et T peuvent être récupérés de deux manières différentes, numériquement, avec le calcul de l'exponentiel $e^{\bar{\bar{A}}L}$ de matrice connaissant la matrice de propagation $\bar{\bar{A}}$, et analytiquement en résolvant l'équation (\ref{Eq_Prop}).
     
-    Il est proposé ici de déterminer l'expression analytique de R et T, qui dans la suite  pourra donner des a priori sur les signaux étudiés lors de la méthode de propagation inverse. 
+    Il est proposé ici de déterminer les expressions analytiques de R et T, qui dans la suite  pourront donner être inversé de façon a retrouver les paramètres du fluide. 
 
 \section{Coefficients de réflexion/transmission R et T}
 \label{Ch_Dir_S_R/T}
@@ -312,41 +370,40 @@ Arthur \textsc{Terroir} % Your name
 		p_L-Z_3v_L \\ p_L+Z_3v_L
     \end{pmatrix}=\begin{pmatrix}
               		(p_0-Z_3v_0)e^{-i k_{33} L} \\ (p_0+Z_3v_0)e^{i k_{33} L}
-            \end{pmatrix} e^{i \tilde{q} L}\label{eqDif_tmp}
+            \end{pmatrix} e^{i \tilde{q} L},\label{eqDif_tmp}
     \end{align}  
-    
-    R et T peuvent être obtenus avec la résolution du système de deux équations à deux inconnues, en rappelant les conditions aux limites (\ref{BC_L}) et (\ref{BC_0}), tels que :
+    avec $Z_3$ définit Eq. (\ref{def:Z3}). R et T peuvent être obtenus avec la résolution du système de deux équations à deux inconnues, en rappelant les conditions aux limites (\ref{BC_L}) et (\ref{BC_0}), tels que :
     \begin{align}
     &T=\frac{e^{-i\tilde{q}L}}{cos(k_{33}L)-\frac{i}{2}(\frac{Z}{Z_3}+\frac{Z_3}{Z})sin(k_{33}L)}\label{Transmission},\\ 
     &R=\frac{i}{2} \frac{(\frac{Z}{Z_3}-\frac{Z_3}{Z})sin(k_{33}L)}{cos(k_{33}L)-\frac{i}{2}(\frac{Z_3}{Z}+\frac{Z}{Z_3})sin(k_{33}L)}\label{Reflexion},
     \end{align}
     où $Z$ est la projection de l'impédance caractéristique du milieu de l'onde incidence telle que $Z=\frac{\rho\omega}{k_3}=-\frac{Z_c}{cos(\theta)}$.
     
-    Il est possible de voir dans l'expression (\ref{Transmission}) que $\tilde{q}$ induit une variation de phase dans le coefficient de réflexion, variation qui dépend des densités complexes du milieu fluide, et donc de l'anisotropie du milieu. Dans le cas particulier où les densités $\rho_{13}$ et $\rho_{23}$ soient nulles, $\tilde{q}$ est nul, et donc il n'y aura aucun changement de la phase de T. Autrement dit, si l'on assimile les deux densités précédentes à des rotations du plan principal $\rho_I\rho_{II}$, $\tilde{q}$ traduit le déphasage induit par l'anisotropie du nouveau plan du matériau $x_1x_2$. De plus, comme attendu, $k_{33}$ joue bien le rôle d'un nombre d'onde effectif.
+    Il est possible de voir dans l'expression (\ref{Transmission}) que $\tilde{q}$ induit une variation de phase dans le coefficient de transmission, variation qui ne dépend que des densités complexes du milieu fluide, et donc de l'anisotropie du milieu. Dans le cas particulier où les densités $\rho_{13}$ et $\rho_{23}$ soient nulles, $\tilde{q}$ est nul, et donc il n'y aura aucun changement de la phase de T. Autrement dit, si l'on assimile les deux densités précédentes à des rotations du plan principal $\rho_I\rho_{II}$, $\tilde{q}$ traduit le déphasage induit par l'anisotropie du nouveau plan du matériau $x_1x_2$. De plus, comme attendu, $k_{33}$ joue bien le rôle d'un nombre d'onde effectif.
     
 \section{Comparaison analytique et numérique}
 \label{Ch_Dir_S_Comp}
-    Afin de valider les expressions (\ref{Reflexion}) et (\ref{Transmission}) de R et T, il est ici proposé de comparer les R et T obtenus analytiquement et numériquement, pour des densités et un bulk modulus dépendant de la fréquence. Les densités complexes, le bulk modulus ainsi que les coefficients R et T obtenus en incidence normale sont représentés sur la figure (\ref{RT_comp}) :
+    Afin de valider les expressions (\ref{Reflexion}) et (\ref{Transmission}) de R et T, il est ici proposé de comparer les R et T obtenus analytiquement et numériquement, pour des densités et un module de compressibilité dépendant de la fréquence. Les densités complexes, le module de compressibilité ainsi que les coefficients R et T obtenus en incidence normale sont représentés sur la fig. \ref{RT_comp} :
 \begin{figure}[ht!]
     \centering
     \includegraphics[scale=0.4]{RT_num_th.pdf}
-    \caption{ Coefficients de transmission et réflexion (colonne 3) obtenus par un calcul numérique et analytique de la matrice de transfère $Tr$ du milieu fluide équivalent. Les paramètres du fluide équivalent sont le bulk modulus complexe (colonne 1) et les trois densités principales complexes (colonne 2). Une concordance parfaite est observée pour les R et T calculés numériquement et analytiquement.}
+    \caption{ Coefficients de transmission et réflexion (colonne 3) obtenus par un calcul numérique et analytique de la matrice de transfère $\Pi$ du milieu fluide équivalent. Les paramètres du fluide équivalent sont le module de compressibilité complexe (colonne 1) et les trois densités principales complexes (colonne 2). Une concordance parfaite est observée pour les R et T calculés numériquement et analytiquement.}
     \label{RT_comp}
 \end{figure}
     
     Un concordance parfaite est obtenue pour les coefficients R et T en incidence normale, pour toutes les fréquences du domaine étudié. La validation des expressions (\ref{Transmission}) et (\ref{Reflexion}) est donc concluante. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Problème inverse : Détermination de la matrice de densité $\bar{\bar{\rho}}$ et du Bulk modulus équivalent $\tilde{K}$}
+\chapter{Problème inverse : Détermination de la matrice de densité $\bar{\bar{\rho}}$ et du module de compressibilité équivalent $\tilde{K}$}
 \label{Ch_Inv}
-	A ce stade de l'étude du problème, il a été possible d'obtenir la matrice de transfert $Tr$ de la couche fluide équivalente, et en appliquant des conditions initiales, les coefficients de réflexions et transmissions ont pu être déterminés.
+	A ce stade de l'étude du problème, il a été possible d'obtenir la matrice de transfert $\Pi$ de la couche fluide équivalente, et en appliquant des conditions initiales, les coefficients de réflexions et transmissions ont pu être déterminés.
 	
-	Il est donc possible maintenant de développer une méthode inverse, visant à déterminer les paramètres du milieux fluide équivalent, soit la matrice de densités complexe $\bar{\bar{\rho}}$ et le bulk modulus $K$, à partir de couple de coefficients de réflexion et transmission R/T connus pour différents angles d'incidence.
-	La méthode développée permet d'identifier les sept paramètres caractérisant le fluide, six densités complexes et un bulk modulus, à partir de six couples R/T, soit douze informations. A première vue, la méthode est surdimensionnée avec douze informations pour six inconnues, mais en regardant plus en détail, il est possible de voir que les six couples de données donnent l'information sur les six densités, ainsi que six informations redondantes sur le bulk modulus. Le surdimensionement vient donc des six informations sur le bulk modulus contenues dans chaque couple de données. 
+	Il est donc possible maintenant de développer une méthode inverse, visant à déterminer les paramètres du milieux fluide équivalent, soit la matrice de densités complexe $\bar{\bar{\rho}}$ et le module de compressibilité $K$, à partir de couple de coefficients de réflexion et transmission R/T connus pour différents angles d'incidence.
+	La méthode développée permet d'identifier les sept paramètres caractérisant le fluide, six densités complexes et un module de compressibilité, à partir de six couples R/T, soit douze informations. A première vue, la méthode est surdimensionnée avec douze informations pour six inconnues, mais en regardant plus en détail, il est possible de voir que les six couples de données donnent l'information sur les six densités, ainsi que six informations redondantes sur le module de compressibilité. Le surdimensionement vient donc des six informations sur le module de compressibilité contenues dans chaque couple de données. 
     
-    Il est important de noter ici que la longueur L de la couche fluide est supposée déterminée par une autre méthode précédemment, et que dans la méthode proposée, L est considérée comme connue.
+    Il est important de noter ici que l'épaisseur L de la couche fluide est supposée connue ainsi que les 6 angles d'incidences.
     
-    La méthode peut se décrire en plusieurs étapes, dans un premier temps le bulk modulus est déterminé en incidence normale, puis les termes de phases sont identifiés par une variation de phase du coefficient de transmission T le long des directions $x_1$ et $x_2$. Finalement, pouvant identifier l'impédance $Z_3$ caractérisant la propagation dans la couche fluide, les densité sont déterminées.
+    La méthode peut se décrire en plusieurs étapes, dans un premier temps le module de compressibilité est déterminé en incidence normale, puis les termes de phases sont identifiés par une variation de phase du coefficient de transmission T le long des directions $x_1$ et $x_2$. Finalement, pouvant identifier l'impédance $Z_3$ caractérisant la propagation dans la couche fluide, les densité sont déterminées.
     
 \section{Rappel du problème de propagation dans la couche fluide}
 \label{Ch_Inv_S_Pb}
@@ -381,9 +438,9 @@ Afin de pouvoir mettre en place la méthode inverse, il faut dans un premier tem
     de ces deux expressions, il est possible de déterminer les deux paramètres $Z_3$ et $k_{33}$.
     Dans un premier temps, en écrivant le produit (\ref{Eq_Prop_tmp2})x(\ref{Eq_Prop_tmp3}), il est possible d'annuler les termes en $k_{33}$ et il vient : 
     \begin{align}
-    Z_3^2=\frac{p_0^2-p_L^2e^{-2i\tilde{q}L}}{v_0^2-v_L^2e^{-2i\tilde{q}L}}=\frac{T^2e^{2iq_1L}-(1+R)^2}{T^2e^{2i\tilde{q}L}-(1-R)^2}Z^2\label{Z3_tmp}
+    Z_3^2=\frac{p_0^2-p_L^2e^{-2i\tilde{q}L}}{v_0^2-v_L^2e^{-2i\tilde{q}L}}=\frac{T^2e^{2iq_1L}-(1+R)^2}{T^2e^{2i\tilde{q}L}-(1-R)^2}Z^2.\label{Z3_tmp}
     \end{align}
-    Il est donc possible d'exprimer l'impédance effective $Z_3$ en fonction de R et de T, Z, ainsi que du terme de phase $\tilde{q}$. Les trois premiers termes R, T et Z sont connus dans notre problème, connaissant l'excitation et les coefficients R et T mesurés. En revanche $\tilde{q}$, n'est pas déterminé à ce stade du problème, et en reprenant son expression $\tilde{q}=q_1+q_2$, il n'est connu que en incidence normale où il est nul. L'impédance $Z_3$ n'est donc déterminée pour le moment que en incidence normale. Finalement, il est défini ici une fonction $F(R,T,\tilde{q})$, permettant d'obtenir l'impédance $Z_3$ à partir de R et T comme :
+    Il est donc possible d'exprimer l'impédance effective $Z_3$ en fonction de R et de T, Z, ainsi que du terme de phase $\tilde{q}$. Les trois premiers termes R, T et Z sont connus dans notre problème, connaissant l'excitation et les coefficients R et T mesurés. En revanche $\tilde{q}$, n'est pas déterminé à ce stade du problème, et en reprenant son expression $\tilde{q}=q_1+q_2$, il est nul en en incidence normale où il est nul. L'impédance $Z_3$ n'est donc déterminée pour le moment que en incidence normale. Finalement, il est défini ici une fonction $F(R,T,\tilde{q})$, permettant d'obtenir l'impédance $Z_3$ à partir de R et T comme :
     \begin{align}
     &Z_3=F(R,T,\tilde{q})Z,\label{Z3}\\
     &F(R,T,\tilde{q})=\sqrt{\frac{T^2e^{2i\tilde{q}l}-(1+R)^2}{T^2e^{2i\tilde{q}L}-(1-R)^2}}.\label{F(R,T,q)}
@@ -394,15 +451,15 @@ Afin de pouvoir mettre en place la méthode inverse, il faut dans un premier tem
      \begin{align}
         k_{33}=\frac{\psi-i\ ln(|\xi|)}{L}\label{k_{33}}.
     \end{align}
-    Le nombre d'onde effectif $k_{33}$ peut, de la même façon que $z_3$, être obtenu en incidence normale mais n'est pas défini pour tous les angles d'incidence.
+    Le nombre d'onde effectif $k_{33}$ peut, de la même façon que $Z_3$, être déterminé en incidence normale mais n'est pas défini pour tous les angles d'incidence.
     
-\section{Bulk modulus équivalent $\tilde{K}$}
+\section{module de compressibilité équivalent $\tilde{K}$}
 \label{Ch_Inv_S_K}
-Afin de pouvoir identifier les densités du fluide équivalent, il est nécessaire de connaître l'impédance $Z_3$  et le bulk modulus $K$, il est ici proposé de déterminer $K$.
+Afin de pouvoir identifier les densités du fluide équivalent, il est nécessaire de connaître l'impédance $Z_3$  et le module de compressibilité $K$, il est ici proposé de déterminer $K$.
     
     Comme dit précédemment, l'information de $K$ est contenue pour chaque couple R/T, et plus précisément dans les paramètres $Z_3$ et $k_{33}$ qui nous intéressent en incidence normale.
     
-    Par définition l'on peut écrire :
+    Par définition, il peut être écrit :
     \begin{align}
         Z_3=\tilde{\rho_3}c_{33}=\sqrt{\tilde{\rho_3}\tilde{K}},\label{Z3_tmp2}\\
         k_{33}=\frac{\omega}{c_{33}}=\sqrt{\frac{\tilde{\rho_3}}{\tilde{K}}}\label{k33_tmp}
@@ -419,9 +476,9 @@ Afin de pouvoir identifier les densités du fluide équivalent, il est nécessai
 \label{Ch_Inv_S_q}
     Afin de connaître $Z_3$ pour chaque angle d'incidence, et donc de pouvoir déterminer la matrice densité $\bar{\bar{\rho}}$, le terme de phase $\tilde{q}$ doit être identifié. $\tilde{q}$ correspond à une variation de la phase de l'onde transmise, due à un couplage induit par les densités $\rho_{13}$ et $\rho_{23}$. Afin d'observer la variation de phase produite par $\tilde{q}$, il est possible d'étudier le coefficient de transmission pour deux ondes incidentes, de même angle azimutal $\phi$ et d'élévation $\theta $ opposée, ainsi pour deux ondes incidentes le long d'une même direction, un déphasage de transmission sera observé et l'on pourra remonter au terme de phase $\tilde{q}$.
     
-    Du point de vue mathématique, cela peut s'expliquer en s'intéressant à l'expression (\ref{Transmission}) du coefficient de transmission. Pour un angle azimutal $\phi$ fixé, si l'on considère deux angles d'incidence opposés $\pm \theta$, l'expression ne change que par le terme en $\tilde{q}$. $k_{33}$ et $Z_3$ varient avec l'angle d'incidence de part $\tilde{K}$, or d'après l'expression (\ref{Ktild}), il est possible de montrer $\tilde{K}|^{+\theta}_{\phi}=\tilde{K}|^{-\theta}_{\phi}$. De plus l'impédance Z dépend d'une fonction paire de l'élévation $\theta$, il est donc montré que la variation du coefficient de transmission T ne dépend que du terme de phase $\tilde{q}$.
+    Du point de vue mathématique, cela peut s'expliquer en s'intéressant à l'expression du coefficient de transmission Eq.(\ref{Transmission}) . Pour un angle azimutal $\phi$ fixé, si l'on considère deux angles d'incidence opposés $\pm \theta$, l'expression ne change que par le terme en $\tilde{q}$. $k_{33}$ et $Z_3$ varient avec l'angle d'incidence de part $\tilde{K}$. Or d'après l'expression (\ref{Ktild}), il est possible de montrer $\tilde{K}|^{+\theta}_{\phi}=\tilde{K}|^{-\theta}_{\phi}$. De plus l'impédance Z dépend d'une fonction paire de l'élévation $\theta$, il est donc montré que la variation du coefficient de transmission T ne dépend que du terme de phase $\tilde{q}$.
     
-    Si l'on étudie l'expression de $q_1$ (\ref{q1}) et de $q_2$ (\ref{q2}), il est possible de choisir deux couples d'angle d'incidence $\theta$ et $\phi$ adéquates, afin d'isoler l'influence de soit $q_1$, soit $q_2$, dans le terme de phase $\tilde{q}$. Afin d'isoler le terme $q_1$, il est proposé de prendre deux angles d'incidences le long de l'axe $x_1$, soit un angle azimutal de $\phi=0$, d'où $k_2=q_2=0$, de plus pour deux angles d'élévation opposés $\theta=\pm \frac{\pi}{6}$, il est possible d'écrire $q_1|^{\theta=\frac{\pi}{6}}_{\phi=0}=-q_1|^{\theta=\frac{-\pi}{6}}_{\phi=0}$. De même pour isoler $q_2$, il est possible de prendre deux angles d'incidence opposés le long de $x_2$, tels que $\theta=\pm \frac{\pi}{6}$ et $\phi=\frac{\pi}{2}$.
+    Si l'on étudie l'expression de $q_1$ (\ref{q1}) et de $q_2$ (\ref{q2}), il est possible de choisir deux couples d'angle d'incidence $\theta$ et $\phi$ adéquates, afin d'isoler l'influence de soit $q_1$, soit $q_2$, dans le terme de phase $\tilde{q}$. Afin d'isoler le terme $q_1$, il est proposé de prendre deux angles d'incidences le long de l'axe $x_1$, soit un angle azimutal de $\phi=0$, d'où $k_2=q_2=0$, pour deux angles d'élévation opposés $\theta=\pm \frac{\pi}{6}$, il est possible d'écrire $q_1|^{\theta=\frac{\pi}{6}}_{\phi=0}=-q_1|^{\theta=\frac{-\pi}{6}}_{\phi=0}$. De même pour isoler $q_2$, il est possible de prendre deux angles d'incidence opposés le long de $x_2$, tels que $\theta=\pm \frac{\pi}{6}$ et $\phi=\frac{\pi}{2}$.
     
     Il est ici défini les deux termes $q_1^{(0)}$ et $q_2^{(0)}$ correspondant aux termes $q_1$ et $q_2$ sans projection du nombre d'onde incident $k^{(0)}$, tels que :
     \begin{align}
@@ -439,7 +496,7 @@ Afin de pouvoir identifier les densités du fluide équivalent, il est nécessai
 \label{Ch_Inv_S_rho}
 \subsection{Système d'équation}
 \label{Ch_Inv_S_rho_SS_eq}
-    Maintenant que le bulk modulus $K$ est connu ainsi que le terme de phase $\tilde{q}$, l'impédance effective $Z_3$ est connu pour tout les angles d'incidence, il est proposé d'identifier les différentes densités en utilisant les données connues à travers $Z_3$.
+    Maintenant que le module de compressibilité $K$ est connu ainsi que le terme de phase $\tilde{q}$, l'impédance effective $Z_3$ est connu pour tout les angles d'incidence, il est proposé d'identifier les différentes densités en utilisant les données connues à travers $Z_3$.
     
 	L'impédance est ici réécrite de façon à mettre en évidence les différents paramètres à identifier, c'est-à-dire les densités complexes. En posant $\tilde{K}=\frac{K}{\alpha}$, il est possible d'exprimer $Z_3$, en développant l'expression (\ref{Ktild}), comme :
 	\begin{align}
@@ -466,7 +523,7 @@ Afin de pouvoir identifier les densités du fluide équivalent, il est nécessai
 \subsection{Densités $\rho_1$, $\rho_2$ et $\rho_{12}$}
 \label{Ch_Inv_S_rho_SS_rho1/2/12}
     L'expression (\ref{Eq_res}) fait apparaître trois densités à déterminer, il faut donc donc trois couples R/T à des angles d'incidence différents pour pouvoir résoudre un système de trois équations à trois inconnues, et donc identifier les trois densités $\rho_1$, $\rho_2$ et $\rho_{12}$.
-    Considérant les projection du nombre d'onde incident $k^{(0)}$ mises en jeu dans l'équation (\ref{Eq_res}), les trois angles d'incidence peuvent être choisis afin d'isoler l'influence de chacune des densités. En reprenant deux des angles d'incidence utilisés pour déterminer $\tilde{q}$, $\theta=\frac{\pi}{6}$ et $\phi=0$ ainsi que $\theta=\frac{\pi}{6}$ et $\phi=\frac{\pi}{2}$, il est possible d'annuler soit $k_1$ soit $k_2$. De plus si un troisième angle d'incidence, dit "oblique", est pris tel que $k_1\ne 0$ et $k_2\ne 0$, avec la même projection du nombre, dans notre cas $\theta=\frac{\pi}{4}$ et $\phi=\frac{\pi}{4}$, il est possible d'écrire :
+    Considérant les projection du nombre d'onde incident $k^{(0)}$ mises en jeu dans l'équation (\ref{Eq_res}), les trois angles d'incidence peuvent être choisis afin d'isoler l'influence de chacune des densités. En reprenant deux des angles d'incidence utilisés pour déterminer $\tilde{q}$, $\theta=\frac{\pi}{6}$ et $\phi=0$ ainsi que $\theta=\frac{\pi}{6}$ et $\phi=\frac{\pi}{2}$, il est possible d'annuler soit $k_1$ soit $k_2$. De plus si un troisième angle d'incidence, hors système propre, est pris tel que $k_1\ne 0$ et $k_2\ne 0$, avec la même projection du nombre, dans notre cas $\theta=\frac{\pi}{4}$ et $\phi=\frac{\pi}{4}$, il est possible d'écrire :
     \begin{align}
         k=k_1|^{(\frac{\pi}{6})}_{(0)}=k_2|^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}=k_1|^{(\frac{\pi}{4})}_{(\frac{\pi}{4})}=k_2|^{(\frac{\pi}{4})}_{(\frac{\pi}{4})}=\frac{1}{2}k^{(0)}.
     \end{align}
@@ -476,21 +533,21 @@ Afin de pouvoir identifier les densités du fluide équivalent, il est nécessai
     &\frac{K}{\omega^2}\frac{\rho_2}{\rho_1\rho_2-\rho_{12}^2}k^2=\gamma^{(\frac{\pi}{6})}_{(0)}\label{Comp_1},\\ &\frac{K}{\omega^2}\frac{\rho_1}{\rho_1\rho_2-\rho_{12}^2}k^2=\gamma^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}\label{Comp_2},\\ &\frac{K}{\omega^2}\frac{\rho_1+\rho_2-2\rho_{12}}{\rho_1\rho_2-\rho_{12}^2}k^2=\gamma^{(\frac{\pi}{4})}_{(\frac{\pi}{4})}\label{Comp_3}.
     \end{align}
 
-    Les expressions [(\ref{Comp_1}):(\ref{Comp_3})] permettent d'écrire les rapports de densité suivants, et ainsi de déterminer un ratio $X_i$ entre ces densités :
+    Les expressions (\ref{Comp_1}) et (\ref{Comp_3}) permettent d'écrire les rapports de densité suivants, et ainsi de déterminer un ratio $X_i$ entre ces densités :
     \begin{align}
     &\frac{(\ref{Comp_2})}{(\ref{Comp_1})} :\ \frac{\rho_1}{\rho_2}=\frac{\gamma|^{(\frac{\pi}{6})}_{(0)}}{\gamma|^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}}=X_1,\label{Comp_rho2_rho1} \\
     &\frac{(\ref{Comp_1})+(\ref{Comp_2})-(\ref{Comp_3})}{(\ref{Comp_2})} :\ \frac{\rho_{12}}{\rho_1}=\frac{1}{2}\frac{\gamma|^{(\frac{\pi}{6})}_{(0)}+\gamma|^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}-\gamma|^{(\frac{\pi}{4})}_{(\frac{\pi}{4})}}{\gamma|^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}}=X_2,\label{Comp_rho12_rho1} \\
     &\frac{(\ref{Comp_1})+(\ref{Comp_2})-(\ref{Comp_3})}{(\ref{Comp_1})} :\ \frac{\rho_{12}}{\rho_2}=\frac{1}{2}\frac{\gamma|^{(\frac{\pi}{6})}_{(0)}+\gamma|^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}-\gamma|^{(\frac{\pi}{4})}_{(\frac{\pi}{4})}}{\gamma|^{(\frac{\pi}{6})}_{(0)}}=X_3.\label{Comp_rho12_rho2}
     \end{align}
     
-    En introduisant ces rapports de densité dans l'une des trois équations [(\ref{Comp_1}):(\ref{Comp_3})], ici (\ref{Comp_2}), il vient : 
+    En introduisant ces rapports de densité dans l'une des trois équations (\ref{Comp_1}) et (\ref{Comp_3}), ici (\ref{Comp_2}), il vient : 
     \begin{align}
     &\rho_2=\frac{X_1}{(X_1-X_3^2)\gamma|^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}},\label{Comp_rho2}\\
     &\rho_1=X_1\rho_2,\label{Comp_rho1}\\
     &\rho_{12}=X_3\rho_2.\label{Comp_rho12}
     \end{align}
     
-    Finalement, en développant les ratio $X_i$ dans les expressions [(\ref{Comp_rho1}):(\ref{Comp_rho12})], il est possible de déterminer les trois densités $\rho_1$, $\rho_2$ et $\rho_{12}$ :
+    Finalement, en développant les ratio $X_i$ dans les expressions (\ref{Comp_rho1}) et (\ref{Comp_rho12}), il est possible de déterminer les trois densités $\rho_1$, $\rho_2$ et $\rho_{12}$ :
     \begin{align}
         &\rho_1=\frac{\gamma^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}}{\gamma^{(\frac{\pi}{6})}_{(0)}\gamma^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}-\frac{1}{4}(\gamma^{(\frac{\pi}{6})}_{(0)}+\gamma^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}-\gamma^{(\frac{\pi}{4})}_{(\frac{\pi}{4})})^2},\label{rho1}\\
         &\rho_2=\frac{\gamma^{(\frac{\pi}{6})}_{(0)}}{\gamma^{(\frac{\pi}{6})}_{(0)}\gamma^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}-\frac{1}{4}(\gamma^{(\frac{\pi}{6})}_{(0)}+\gamma^{(\frac{\pi}{6})}_{(\frac{\pi}{2})}-\gamma^{(\frac{\pi}{4})}_{(\frac{\pi}{4})})^2},\label{rho2}\\
@@ -499,7 +556,7 @@ Afin de pouvoir identifier les densités du fluide équivalent, il est nécessai
 
 \subsection{Densités $\rho_{13}$, $\rho_{23}$ et $\rho_3$}
 \label{Ch_Inv_S_rho_SS_rho13/23/3}
-    Les trois densités $\rho_{13}$, $\rho_{23}$ et $\rho_3$ restent à déterminer. L'identification peut être fait à partir des paramètres déjà connus, $q_1^{(0)}$, $q_2^{(0)}$ et $\tilde{\rho_3}$, les trois densités étant les seules inconnues restantes.
+    Les trois densités $\rho_{13}$, $\rho_{23}$ et $\rho_3$ restent à déterminer. L'identification peut être réalisé à partir des paramètres déjà connus, $q_1^{(0)}$, $q_2^{(0)}$ et $\tilde{\rho_3}$, les trois densités étant les seules inconnues restantes.
     
     En rappelant les expressions (\ref{q1,0}) et (\ref{q2,0}) de $q_1^{(0)}$ et $q_2^{(0)}$, il vient le système de deux équations à deux inconnues suivant :
     \begin{align*}
@@ -529,14 +586,14 @@ Afin de pouvoir identifier les densités du fluide équivalent, il est nécessai
     
     La méthode peut se diviser en cinq étapes de résolution listées ci-dessous 
     \begin{itemize}
-        \item 1) Détermination du bulk modulus et de $\tilde{\rho_3}$ en incidence normale
+        \item 1) Détermination du module de compressibilité et de $\tilde{\rho_3}$ en incidence normale
         \item 2) Détermination des deux termes de phases $q_1$ et $q_1$ pour respectivement deux angles d'incidence opposés le long de $x_1$ et $x_2$
         \item 3) Identification des trois densités du plan $\rho_1$, $\rho_2$ et $\rho_{12}$ avec trois angles d'incidence selon $x_1$, $x_2$ et médian.
         \item 4) Identification des densités $\rho_{13}$ et $\rho_{23}$ à partir de $q_1$ et $q_2$.
         \item 5) Identification de $\rho_3$ avec $\tilde{\rho_3}$
     \end{itemize}
     
-    La méthode proposée permet de retrouver le bulk modulus et la matrice de densité complexe de la couche fluide équivalente, autrement dit, quelque soit la rotation des directions principales du fluide, des paramètres peuvent être identifiés. Sans aucune connaissance de la géométrie du milieu, il est donc possible de retrouver ses paramètres, avec rotation des directions principales, et dans ses directions principales en résolvant une simple problème au valeur propre.  
+    La méthode proposée permet de retrouver le module de compressibilité et la matrice de densité complexe de la couche fluide équivalente, autrement dit, quelque soit la rotation des directions principales du fluide, des paramètres peuvent être identifiés. Sans aucune connaissance de la géométrie du milieu, il est donc possible de retrouver ses paramètres, avec rotation des directions principales, et dans ses directions principales en résolvant une simple problème au valeur propre.  
     
     
     
@@ -544,33 +601,34 @@ Afin de pouvoir identifier les densités du fluide équivalent, il est nécessai
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Résultats}
 \label{Ch_Res}
+\section{Résultats}
   \begin{figure}[ht!]
         \centering
         \includegraphics{Material_2.pdf}
-        \caption{Couche de matériau poreux constituée de pores ellipsoïdes homogénéisés par le modèle JCAL (citation). La couche est de largeur L=5cm et est supposée infinie dans le plan $x_1x_2$. Trois cas différents sont utilisés avec trois cellules ellipsoïdes différentes, une isotrope (b), une orthotrope (c) et une anisotrope (d). Pour les deux dernières, les directions du matériaux sont considérées comme ayant subi une rotation. Les trois angles d'Euler "ZYX", autour de $x_1$, $x_2$ et $x_3$ sont notés sous la cellule. }
+        \caption{Couche de matériau poreux constituée de pores ellipsoïdes homogénéisés par le modèle JCAL (\cite{Johnson}\cite{Lafarge}\cite{Allard}). La couche est de largeur L=5cm et est supposée infinie dans le plan $x_1x_2$. Trois cas différents sont utilisés avec trois cellules ellipsoïdes différentes, une isotrope (b), une orthotrope (c) et une anisotrope (d). Pour les deux dernières, les directions du matériaux sont considérées comme ayant subi une rotation. Les trois angles d'Euler "ZYX", autour de $x_1$, $x_2$ et $x_3$ sont notés sous la cellule. }
         \label{Porous_Mat}
     \end{figure}
 
-    La méthode ayant été décrite dans la partie \ref{Ch_Inv}, il est maintenant proposé de faire une validation numérique de la méthode à partir d'un matériau poreux. Le matériau poreux, décrit sur la figure (\ref{Porous_Mat}), de longueur L=5cm selon $x_3$ et infinie dans le plan $x_1x_2$, est constitué de cellules ellipsoïdales de différentes formes. Trois cas sont étudiés ici, avec une cellule isotrope, une cellule orthotrope et une cellule anisotrope. Une rotation des directions principales du fluide équivalent anisotrope est faite selon les trois angles d'Euler en configuration "ZYX" autour de $x_1$, $x_2$ et $x_3$. La rotation du milieux est décrites dans l'annexes A (Ref). L'homogénéisation du poreux étant faite avant la rotation du milieu, aucune modification n'est prise en compte dans le cas isotrope. Les trois angles de rotation du cas orthotrope sont $\theta_I=15\textdegree$, $\theta_{III}=55\textdegree$ et $\theta_{II}=80\textdegree$, et dans le cas anisotrope $\theta_I=2\textdegree$, $\theta_{II}=37\textdegree$ et $\theta_{III}=60\textdegree$.
+    La méthode ayant été décrite dans la partie \ref{Ch_Inv}, il est maintenant proposé de faire une validation numérique de la méthode à partir d'un matériau poreux. Le matériau poreux, décrit sur la fig. \ref{Porous_Mat}, de longueur L= 5cm selon $x_3$ et infinie dans le plan $x_1x_2$, est constitué de cellules ellipsoïdales de différentes formes. Trois cas sont étudiés ici, avec une cellule isotrope, une cellule orthotrope et une cellule anisotrope. Une rotation des directions principales du fluide équivalent anisotrope est faite selon les trois angles d'Euler en configuration "ZYX" autour de $x_1$, $x_2$ et $x_3$. La rotation du milieux est décrites dans l'annexes A \ref{Ch_Ann_S_rot}. L'homogénéisation du poreux étant faite avant la rotation du milieu, aucune modification n'est prise en compte dans le cas isotrope. Les trois angles de rotation du cas orthotrope sont $\theta_I=15\textdegree$, $\theta_{III}=55\textdegree$ et $\theta_{II}=80\textdegree$, et dans le cas anisotrope $\theta_I=2\textdegree$, $\theta_{II}=37\textdegree$ et $\theta_{III}=60\textdegree$.
     
     \begin{figure}[ht!]
         \centering
         \includegraphics[scale=0.45]{Bulk.pdf}
-        \caption{Bulk modulus reconstruit (ligne continue) et théorique(marqueurs rond), dans le cas sans bruit, pour les trois types de matériaux poreux homogénéisés, isotrope, orthotrope et anisotrope.}
+        \caption{module de compressibilité reconstruit (ligne continue) et théorique(marqueurs rond), dans le cas sans bruit, pour les trois types de matériaux poreux homogénéisés, isotrope, orthotrope et anisotrope.}
         \label{bulk}
     \end{figure}
     
+    Les paramètres des trois matériaux poreux utilisés ont été générés avec l'aide de M. Théo Cavaliéri, doctorant au L.A.U.M UMR CNRS 6613, un rapide résumé de la méthode utilisée pour la génération, fournis pour lui-même, est disponible dans l'annexe B (\ref{Ch_Ann_S_Gen}). 
+    
     Pour les trois cas, les six couples R/T sont obtenus avec un modèle de propagation fluide pour les six angles d'incidence nécessaires à la méthode. Les paramètres des trois différents fluides (isotrope, orthotrope et anisotrope) sont identifiés par la méthode inverse et comparer à ceux du fluide équivalent, dans le cas sans bruit et avec bruit rajouté à R et T. 
     
-    Un exemple de signal bruité pour le cas du fluide équivalent anisotrope est représenté sur la figure (\ref{RT_noise}), pour les densités complexes et le bulk également représentés. Les coefficients R et T sont représentés en incidence normale, pour un SNR de 30 dB.  
+    Un exemple de signal bruité pour le cas du fluide équivalent anisotrope est représenté sur la fig. \ref{RT_noise}, pour les densités complexes et le bulk également représentés. Les coefficients R et T sont représentés en incidence normale, pour un SNR de 30 dB.  
     
     Dans un premier temps, La reconstruction des paramètres de la couche fluide  est faites dans le cas sans bruit. Ces premier résultat ne permettent pas de valider la méthode, les coefficients R et T étant calculés par le même modèle de propagation dans une couche de fluide équivalent anisotrope que pour celui utilisé pour développer la méthode inverse.  
 
-    Le premiers paramètres reconstruit par la méthode proposée est le bulk modulus en incidence normale, représenté sur la figure (\ref{bulk}) :
+    Le module de compressibilité est parfaitement reconstruit par la méthode, pour les trois types de matériaux. Les R et T étant obtenue pour un même modèle de propagation dans une couche fluide équivalente, il vient donc logiquement que la méthode inverse retrouve les paramètres fidèlement aux paramètres en entrées. 
     
-    Le bulk modulus est parfaitement reconstruit par la méthode, pour les trois types de matériaux. Les R et T étant obtenue pour un même modèle de propagation dans une couche fluide équivalente, il vient donc logiquement que la méthode inverse retrouve les paramètres fidèlement aux paramètres en entrées. 
-    
-    Les densités complexe sont ensuite identifiées en incidence non-normale, pour les trois cas isotrope, orthotrope et anistrope. Les densités obtenues sont représentés sur la figure (\ref{rho_rot}) :
+    Les densités complexe sont ensuite identifiées en incidence non-normale, pour les trois cas isotrope, orthotrope et anistrope. Les densités obtenues sont représentés sur la fig. \ref{rho_rot} :
     \begin{figure}[ht!]
         \centering
         \includegraphics[scale=0.45]{Density_rot.pdf}
@@ -580,8 +638,18 @@ Afin de pouvoir identifier les densités du fluide équivalent, il est nécessai
     
     De même que pour le bulk mudulus, la méthode donne une identification parfaite des densités complexes dans le cas sans bruit, conformément aux au faits d'utiliser le même modèle pour l'obtention de R et T et pour l'obtention de la méthode inverse. Une observation possible sur le matériau poreux anisotrope et orthotrope est que la partie imaginaire des densités diagonales sont très proches, ce qui peut jouer un rôle dans l'identification des directions principales du matériau.
     
-    Par une simple diagonalisation de la matrice de densité $\bar{\bar{\rho}}$, il est possible de retrouver les densités dans les directions principales. Et en utilisant des critères de rangement des valeurs propres, il est possible de retrouver, à partir des vecteurs propres triés, les angles de rotations des directions principales. Dans notre cas la fonction "rotm2eul" de $matlab^{\textregistered}$, avec comme critère de tri des valeurs propres $0<\theta_{I}<\frac{\pi}{2}$ et $0<\theta_{II}<\frac{\pi}{2}$.
-    Les densités complexes des directions principales et les angles de rotation obtenu dans les trois cas isotrope, orthotrope et anisotrope sont représentés sur la figure (\ref{rho_dir}) : 
+    A ce stade les paramètres sont reconstruit dans le cas où la couche de fluide est considéré hors de ses directions propre. Afin de connaître le fluide étudié, il est donc nécessaire de retrouvé ses paramètres dans ses 3 directions principales, ainsi que d'identifier la rotation appliquée a ceux-ci.    
+    Par une simple diagonalisation de la matrice de densité $\bar{\bar{\rho}}$, il est possible de retrouver les densités dans les directions principales et leur coordonnées avec la matrice de vecteurs propre.
+    
+    Il est possible d'écrire la rotation de la matrice densité ainsi que sa diagonalisation comme une transformation de matrice :
+    \begin{align}
+        &\bar{\bar{\rho_{rot}}}=\bar{\bar{R}}\bar{\bar{\rho}}\bar{\bar{R^{-1}}},\\
+        &\bar{\bar{\rho}}=\bar{\bar{U}}\bar{\bar{\rho_{diag}}}\bar{\bar{U^{-1}}},
+    \end{align}
+    avec $\bar{\bar{R}}$ la matrice de rotation et $\bar{\bar{U}}$ la matrice des vecteur propre.
+    Par analogie, il semble donc que $\bar{\bar{U}}=\bar{\bar{R}}$. La matrice de rotation et donc les angles de rotation peuvent être retrouvé avec la matrice des vecteurs propres. Les valeurs propres et vecteurs propres n'étant pas systématiquement rangés dans l'ordre des directions principales du fluide, un tri est nécessaire. La matrice de rotation est définit comme la matrice des vecteurs propres trié selon les critère choisis.  Dans notre cas la fonction "rotm2eul" de $matlab^{\textregistered}$ est utilisé pour obtenir les angles trois d'euler à partir de la matrice de rotation, avec comme critère de tri des valeurs propres $0<\theta_{I}<\frac{\pi}{2}$ et $0<\theta_{II}<\frac{\pi}{2}$.
+    
+    Les densités complexes des directions principales et les angles de rotation obtenu dans les trois cas isotrope, orthotrope et anisotrope sont représentés sur la fig. \ref{rho_dir} : 
     \begin{figure}[ht!]
         \centering
         \includegraphics[scale=0.45]{Density_dir.pdf}
@@ -589,27 +657,29 @@ Afin de pouvoir identifier les densités du fluide équivalent, il est nécessai
         \label{rho_dir}
     \end{figure}
     
-    La reconstruction est identique aux densités du fluide équivalent, a part pour le cas isotrope où l'on retrouve la même irrégularité que précédemment. Dans le cas anisotrope, les densités dans les directions principales sont triées le même ordre que pour le fluide équivalent et l'on retrouve les trois angles d'euler comme introduit dans le milieu étudié. Il est ici rappelé que les densités correspondent a des plans, qui sont donc $\pi$ périodique et l'on retrouve bien : $\theta_{III}=-120°=60°$. Dans le cas du fluide équivalent poreux, les densités $\rho_{II}$ et $\rho_{III}$ sont permuté en comparaison au paramètres initiaux du milieu, cette permutation peut être observé par un déphasage de $\frac{\pi}{2}$ sur l'angle $\theta_{III}$.
+    La reconstruction est identique aux densités du fluide équivalent. Dans le cas anisotrope, les densités dans les directions principales sont triées le même ordre que pour le fluide équivalent et l'on retrouve les trois angles d'euler comme introduit dans le milieu étudié. Il est ici rappelé que les densités correspondent a des plans, qui sont donc $\pi$ périodique et l'on retrouve bien : $\theta_{III}=-120°=60°$. Dans le cas du fluide équivalent poreux, les densités $\rho_{II}$ et $\rho_{III}$ sont permuté en comparaison au paramètres initiaux du milieu, cette permutation peut être observé par un déphasage de $\frac{\pi}{2}$ sur l'angle $\theta_{III}$.
     
-    Des signaux bruité sont maintenant utilisé pour l'identification des paramètres des paramètres des mêmes trois matériaux poreux isotrope, orthotrope et anisotrope. Le bruit est introduit par l'ajout de valeur décrits en terme de module phase. Le module du bruit dépend d'une loi gaussienne centrée sur la valeur cible et sa phase dépend d'une loi uniforme entre 0 et $3\pi$. La valeur cible ici choisie est l'énergie non-absorbée par le système, c'est-à-dire $|1-\alpha|$, où $\alpha$ est l'absorption du milieu. Le bruit est ainsi ajouté au différents R et T et un exemple de coefficients obtenus est tracé sur la figure (\ref{RT_noise}). 
+    Des signaux bruité sont maintenant utilisé pour l'identification des paramètres des paramètres des mêmes trois matériaux poreux isotrope, orthotrope et anisotrope. Le bruit est introduit par l'ajout de valeur décrits en terme de module phase. Le module du bruit dépend d'une loi gaussienne centrée sur la valeur cible et sa phase dépend d'une loi uniforme entre 0 et $3\pi$. La valeur cible ici choisie est l'énergie non-absorbée par le système, c'est-à-dire $|1-\alpha|$, où $\alpha$ est l'absorption du milieu. Le bruit est ainsi ajouté au différents R et T et un exemple de coefficients obtenus est tracé sur la fig. \ref{RT_noise}. 
+    
+    Le premiers paramètres reconstruit par la méthode proposée est le module de compressibilité en incidence normale, représenté sur la fig. \ref{bulk} :
     
     \begin{figure}[ht!]
         \centering
         \includegraphics[scale=0.45]{RT_noise.pdf}
-        \caption{Coefficient de réflection R et de transmission simulés pour un fluides équivalent anisotropes dont la matrice densité et le bulk sont représenté a gauche de la figure. Les coefficients R et T sont tracé dans le cas sans bruit (marqueurs rond) et avec un bruit introduit (ligne continue) pour un SNR de 30 dB}
+        \caption{Coefficient de réflection R et de transmission simulés pour un fluides équivalent anisotropes dont la matrice densité et le bulk sont représenté a gauche de la figure. Les coefficients R et T sont tracé dans le cas sans bruit (pointillés) et avec un bruit introduit (lignes continues) pour un SNR de 30 dB}
         \label{RT_noise}
     \end{figure}
     
-    L'identification des paramètres peut être fait pour différents niveaux de bruit, suivant la même méthode que dans le cas sans bruit sans ajouter de régularisation. La méthode est appliquée pour deux cas de matériaux poreux, isotrope et anisotrope, afin d'avoir deux cas représentatif dans les axes principaux (isotrope) et hors des directions principales (anisotropes). Les paramètres reconstruits représentés dans la suite sont le bulk modulus et les densités $\rho_1$, $\rho_{13}$ et $\rho_3$. Ce choix de densités correspond est fait pour simplifier l'analyse de la méthode soumise a du bruit, il permet d'observer l'identification de paramètres en incidence normale ($\rho_3$ et K), en incidence oblique ($\rho_1$ et $\rho_{13}$). 
+    L'identification des paramètres peut être fait pour différents niveaux de bruit, suivant la même méthode que dans le cas sans bruit sans ajouter de régularisation. La méthode est appliquée pour deux cas de matériaux poreux, isotrope et anisotrope, afin d'avoir deux cas représentatif dans les axes principaux (isotrope) et hors des directions principales (anisotropes). Les paramètres reconstruits représentés dans la suite sont le module de compressibilité et les densités $\rho_1$, $\rho_{13}$ et $\rho_3$. Ce choix de densités correspond est fait pour simplifier l'analyse de la méthode soumise a du bruit, il permet d'observer l'identification de paramètres en incidence normale ($\rho_3$ et K), en incidence oblique ($\rho_1$ et $\rho_{13}$). 
     
     \begin{figure}[ht!]
         \centering
         \includegraphics[scale=0.4]{Bulk_noise.pdf}
-        \caption{Identification du bulk modulus pour un fluide équivalent anisotrope à partir de coefficients R et T soumis a trois niveaux de bruit différents. Les bulk modulus identifiés (marqueurs ronds) sont comparés aux bulk modulus du fluide équivalent (ligne continue). La reconstruction dans les trois cas est pertinente à partir de 100 Hz, après la phase de transition du bulk modulus.}
+        \caption{Identification du module de compressibilité pour un fluide équivalent anisotrope à partir de coefficients R et T soumis a trois niveaux de bruit différents. Les module de compressibilité identifiés (marqueurs ronds) sont comparés aux module de compressibilité du fluide équivalent (ligne continue). La reconstruction dans les trois cas est pertinente à partir de 100 Hz, après la phase de transition du module de compressibilité.}
         \label{bulk_noise}
     \end{figure}
     
-    Le premier paramètre reconstruit est le bulk modulus, l'identification est faites dans le cas du fluide équivalent anisotrope, pour trois SNR(rapport signal sur bruit) de 20, 30 et 40 dB. Les différents bulk obtenus sont représenté sur la figure (\ref{bulk_noise}). Logiquement avec l'augmentation du niveau de bruit, l'identification devient moins performante, mais il est possible de voir deux domaines dans la reconstruction du bulk modulus. Le premiers la transition du bulk modulus à 100 Hz, où la reconstruction est relativement fidèle et le second avant la transition où même avec un faible niveau de bruit la reconstruction est fausse.
+    Le premier paramètre reconstruit est le module de compressibilité, l'identification est faites dans le cas du fluide équivalent anisotrope, pour trois SNR(rapport signal sur bruit) de 20, 30 et 40 dB. Les différents bulk obtenus sont représenté sur la fig. \ref{bulk_noise}. Logiquement avec l'augmentation du niveau de bruit, l'identification devient moins performante, mais il est possible de voir deux domaines dans la reconstruction du module de compressibilité. Le premiers la transition du module de compressibilité à 100 Hz, où la reconstruction est relativement fidèle et le second avant la transition où même avec un faible niveau de bruit la reconstruction est fausse.
     
     \begin{figure}[ht!]
         \centering
@@ -617,13 +687,13 @@ Afin de pouvoir identifier les densités du fluide équivalent, il est nécessai
         \caption{Densités reconstruites par méthode inverse, à partir de coefficients de transmission et de réflexions bruités, pour un fluide équivalent isotrope. Les densités identifiées (marqueurs rond) sont comparées aux densités du fluides équivalent (lignes continues). Les paramètres sont reconstruit pour 3 niveaux de bruit différents, SNR de 20,30 et 40dB.}
         \label{rho_iso_noise}
     \end{figure}
-    Les densités sont ensuite reconstruites dans le cas isotrope, pour les mêmes niveaux de bruit. Les densités obtenues sont représentées sur la figure (\ref{rho_iso_noise}) : 
+    Les densités sont ensuite reconstruites dans le cas isotrope, pour les mêmes niveaux de bruit. Les densités obtenues sont représentées sur la fig. \ref{rho_iso_noise} : 
     
-    Plusieurs observations sont faites ici, dans un premier temps le même phénomène que pour le bulk modulus  est observé, l'identification en basse-fréquence est moins efficace que en haute-fréquence, en particulier pour la densité $\rho_1$ avec une identification correct à partir de la transition du bulk modulus. L'identification de $\rho_3$ montre une bonne corrélation avec la densité du fluide équivalent même en basse-fréquence pour la partie imaginaire contrairement a précédemment, de plus il est possible de voir sur la partie réelle l'influence de la partie imaginaire largement supérieur, qui restreint l'identification de la partie réelle de $\rho_3$. Une autre observation est que pour un matériau isotrope, soit $\rho_1=rho_2$, une différence notable est observé dans la constructions de ces deux paramètres, due a leurs méthodes de détermination respectives, l'une en incidence normale ($\rho_3$) et l'autre en incidence oblique ($\rho_1$).
+    Plusieurs observations sont faites ici, dans un premier temps le même phénomène que pour le module de compressibilité  est observé, l'identification en basse-fréquence est moins efficace que en haute-fréquence, en particulier pour la densité $\rho_1$ avec une identification correct à partir de la transition du module de compressibilité. L'identification de $\rho_3$ montre une bonne corrélation avec la densité du fluide équivalent même en basse-fréquence pour la partie imaginaire contrairement a précédemment, de plus il est possible de voir sur la partie réelle l'influence de la partie imaginaire largement supérieur, qui restreint l'identification de la partie réelle de $\rho_3$. Une autre observation est que pour un matériau isotrope, soit $\rho_1=\rho_2$, une différence notable est observé dans la constructions de ces deux paramètres, due a leurs méthodes de détermination respectives, l'une en incidence normale ($\rho_3$) et l'autre en incidence oblique ($\rho_1$).
     
     En effet, la détermination en incidence oblique s'appuie sur le calcul d'une différence de phase, phase qui en basse-fréquence présente de très faible variation de part les grande longueur d'onde. Pour autant il est observé que le terme $\rho_{13}$, déduit de ce terme cette même différence est bien retrouvé nul ici, même pour des niveaux de bruit élevé (SNR=20dB).
     
-    Les densités sont maintenant obtenues dans le cas du fluide équivalent anisotrope, le même que sans bruit, et elles sont représentées sur la figure (\ref{rho_anis_noise}) : 
+    Les densités sont maintenant obtenues dans le cas du fluide équivalent anisotrope, le même que sans bruit, et elles sont représentées sur la fig. \ref{rho_anis_noise} : 
     
     \begin{figure}[ht!]
         \centering
@@ -632,20 +702,31 @@ Afin de pouvoir identifier les densités du fluide équivalent, il est nécessai
         \label{rho_anis_noise}
     \end{figure}
 
-    Les mêmes erreurs de reconstruction de la densité $\rho_3$ sont observées en basse-fréquence que pour le cas isotrope, due a la dynamique entre la partie imaginaire et réelle des densités. Cette erreur n'est faites que $\rho_3$ et n'est pas vu par $\rho_1$, possédant la même dynamique. Une remarque supplémentaire  par rapport au cas isotrope est formulé, les deux densités déterminés en incidence non-normale montre une absence de reconstruction de la partie imaginaire en basse-fréquence, où l'on peut remarquer que la décroissance de la partie imaginaire n'est pas suivie par les paramètres identifiés.
+    Les mêmes erreurs de reconstruction de la densité $\rho_3$ sont observées en basse-fréquence que pour le cas isotrope, due a la dynamique entre la partie imaginaire et réelle des densités. Cette erreur n'est faites que $\rho_3$ et n'est pas vu par $\rho_1$, ayant pourtant la même dynamique entre la partie imaginaire et réelle. Une remarque supplémentaire  par rapport au cas isotrope est formulé, les deux densités déterminés en incidence non-normale montre une absence de reconstruction de la partie imaginaire en basse-fréquence, où l'on peut remarquer que la décroissance de la partie imaginaire n'est pas suivie par les paramètres identifiés.
     
-\subsection{Conclusion}
+\section{Conclusion}
     La méthode a pu être validée en absence de bruit, en utilisant des coefficients de transmission et réflexion R et T obtenu pour la propagation d'une onde à travers un matériau poreux anisotrope simulé. Le modèle de propagation utilisé étant le même que celui utilisé pour développer la méthode, la validation ne permet donc de valider entièrement la méthode.
-    La méthode a pu être validée avec bruit pour un domaine de fréquence supérieur a la fréquence de transition du bulk modulus, dans notre cas supérieur a 100Hz. Cette limitation basse-fréquence peut correspondre au fait que le fluide équivalent est trop resistif, $\Im(\rho)>>\Re(\rho)$, et la méthode ne permet plus donc de reconstruire.
+    La méthode a pu être validée avec bruit pour un domaine de fréquence supérieur a la fréquence de transition du module de compressibilité, dans notre cas supérieur a 100 Hz. Cette limitation basse-fréquence peut correspondre au fait que le fluide équivalent est trop résistif, $\Im(\rho)>>\Re(\rho)$, et la méthode ne permet plus donc de reconstruire.
     
-    Un milieu poreux plus résistif à aussi pu être tésté , et comme attendu d'une méthode en réflexion/transmission, la faible transmission présente une autre limite de la méthode développée.
+    Un milieu poreux plus résistif à aussi pu être testé. Dans le cas où la transmission  est faible a travers le matériau, la méthode ne fournit pas de reconstruction valable, ce qui est logique pour une méthode inverse en réflexion et transmission.
+    
+    A partir de la reconstruction de $\bar{\bar{\rho}}$, il est possible de retrouver les paramètres caractéristiques du matériau poreux, par exemple en utilisant la méthode de reconstruction bayesienne proposé  par M.Niskanon\cite{Niskanen}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter*{Conclusion}
 \addcontentsline{toc}{chapter}{Conclusion}  
+    Une méthode inverse pour retrouvé les paramètres effectifs a pu être développée dans un cas 3D, suivant la même démarche que la méthode proposé par castanié\cite{Castanie}. La méthode permet de déterminé les paramètres effectifs d'un milieu complexe aux dimensions connus, à partir de plusieurs mesures en réflexion/transmission fixées. les directions d'anisotropie sont complètement ignorées dans ce problème, et il est possible de les retrouvées, ainsi que la rotation du milieu. 
+    
+    La méthode a pu être validé numériquement, dans le cas sans bruit, et dans le cas avec bruit pour un domaine de fréquence contenu, dans le cas du poreux testé, entre la fréquence de transition du module de compressibilité et la fréquences d'apparitions des interférences de fabry-pérot.
+    Il est important de noté que, lors de la validation avec bruit, les paramètres reconstruits par des informations obtenues en incidence normale semble être plus fiable que les paramètres reconstruits en incidence oblique. Un autre commentaire est que, en basse-fréquence, pour des longueurs d'onde très grande devant le matériaux, les ondes mesurés ne sont pas sensible à la couche de matériau étudié et la reconstruction n'est plus efficace.
+    
+    Des possibilités de régularisation de la méthode existent : en prenant des angles d'incidences supplémentaires aux six angles minimum requis, il est possible de sur-dimensionner le problème et de régularisé l'identification des paramètres en incidence oblique. De plus, une étude plus poussé de l'influence du bruit permettrai de mieux connaître les source d'erreur, et possiblement de modifier les angles utilisés par la méthode.
+    
+    Une amélioration de la robustesse de la méthode aux bruit et une validation expérimentale reste a réalisé pour validé la méthode. 
+    
+    Cette méthode validée, des possibilités de caractériser des matériaux anisotropes dans les trois directions de l'espace, par exemple pour des matériaux naturelles, en couplant a des techniques pour retrouver les caractéristiques intrinsèques à partir des paramètres effectifs.\cite{Niskanen}. 
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\bibliography{Biblio.bib}
+\bibliographystyle{unsrt}
+\bibliography{Biblio}
 \addcontentsline{toc}{chapter}{Bibliographie} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -654,19 +735,19 @@ Afin de pouvoir identifier les densités du fluide équivalent, il est nécessai
 \section*{Annexe A : Rotation des directions principales du milieu fluide équivalent}
 \label{Ch_Ann_S_rot}
 
-    La rotation du milieu fluide équivalent anisotrope est faites selon les 3 angles d'Euler $\theta_{III}$, $\theta_{II}$ et $\theta_{I}$, représentés sur la figure (\ref{Porous_Mat}), autour des axes $x_3$, $x_2$ et $x_1$. Les trois matrices de rotation associées sont :
+    La rotation du milieu fluide équivalent anisotrope est faites selon les 3 angles d'Euler $\theta_{III}$, $\theta_{II}$ et $\theta_{I}$, représentés sur la fig. \ref{Porous_Mat}, autour des axes $x_3$, $x_2$ et $x_1$. Les trois matrices de rotation associées sont :
     \begin{align}
-        &R_{III}=R(\theta_{III})=\begin{pmatrix} 
+        &\bar{\bar{R_{III}}}=\bar{\bar{R(\theta_{III})}}=\begin{pmatrix} 
                                     cos(\theta_{III}) & -sin(\theta_{III}) & 0 \\
                                     sin(\theta_{III}) & cos(\theta_{III}) & 0 \\
                                     0 & 0 & 1
                                 \end{pmatrix},\\
-        &R_{II}=R(\theta_{II})=\begin{pmatrix} 
+        &\bar{\bar{R_{II}}}=\bar{\bar{R(\theta_{II})}}=\begin{pmatrix} 
                                     cos(\theta_{II}) & 0 & +sin(\theta_{II})\\
                                     0 & 1 & 0 \\
                                     -sin(\theta_{II}) & 0 & cos(\theta_{II})
                                 \end{pmatrix},\\
-        &R_{I}=R(\theta_{I})=\begin{pmatrix} 
+        &\bar{\bar{R_{I}}}=\bar{\bar{R(\theta_{I})}}=\begin{pmatrix} 
                                     1 & 0 & 0\\
                                     0 & cos(\theta_{I}) & -sin(\theta_{I}) \\
                                     0 & sin(\theta_{I}) & cos(\theta_{I}) 
@@ -676,9 +757,9 @@ Afin de pouvoir identifier les densités du fluide équivalent, il est nécessai
     Considérant  les propriétés des matrices de rotation, il est possible d'écrire la matrice de rotation global comme :
     
 \hspace{-3cm}
-\begin{changemargin}{-2.8cm}{-1cm}
+\begin{changemargin}{-2.cm}{-1cm}
     \begin{align}
-    R &=R_{III}*R_{II}*R_{I}\\
+    \bar{\bar{R}} &=\bar{\bar{R_{III}}}*\bar{\bar{R_{II}}}*\bar{\bar{R_{I}}}\\
       &=\begin{pmatrix}
         cos(\theta_{II})cos(\theta_{III}) & -sin(\theta_{III})cos(\theta_{I})-sin(\theta_{I})sin(\theta_{II})cos(\theta_{III}) & sin(\theta_{I})sin(\theta_{III})-sin(\theta_{II})cos(\theta_{I})cos(\theta_{III})\\
         sin(\theta_{III})cos(\theta_{II}) & cos(\theta_{I})cos(\theta_{III})-sin(\theta_{I})sin(\theta_{II})sin(\theta_{III}) & -sin(\theta_{I})cos(\theta_{III})-sin(\theta_{II})sin(\theta_{III})cos(\theta_{I}) \\
@@ -689,8 +770,12 @@ Afin de pouvoir identifier les densités du fluide équivalent, il est nécessai
 
     La  matrice rotation peut s'appliquer à la matrice de densité complexe, qui devient :
     \begin{align}
-        \bar{\bar{\rho_{rot}}}=R\bar{\bar{\rho}}R^{-1}.
+        \bar{\bar{\rho_{rot}}}=\bar{\bar{R}}\bar{\bar{\rho}}\bar{\bar{R^{-1}}}.
     \end{align}
+    
+\newpage
+\section*{Génération du matériau poreux}
+
     
     
 \end{document}

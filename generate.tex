@@ -1,0 +1,90 @@
+\documentclass[a4paper,french,11pt]{article}
+ \usepackage[utf8]{inputenc}
+ \usepackage[T1]{fontenc}
+ \usepackage[french]{babel}
+ \usepackage{wrapfig}
+ \usepackage{graphicx}
+ \usepackage{float}
+ \pagestyle{plain}
+ \usepackage{color}
+ \usepackage{amsmath}
+ \usepackage{amssymb}
+ \usepackage{mathrsfs}
+ \usepackage{amsfonts}
+ \usepackage{makeidx}
+ \usepackage{bm}
+ \headheight = 17pt
+ \usepackage[left=1.5cm,right=1.5cm,bottom=2cm]{geometry}
+
+% NEW COMMANDS
+\newcommand{\dive}{\text{div}}
+\newcommand{\grad}{\textbf{grad}}
+\newcommand{\curl}{\textbf{curl}}
+\newcommand{\DD}{\tens{D}}
+\newcommand{\vect}{\mathbf}
+\newcommand{\tens}{\bm}
+\newcommand{\of}{\Omega_{\textsl{f}}}
+\newcommand{\id}{\tens{I}}
+\newcommand{\xx}{\vect{x}}
+\newcommand{\yy}{\vect{y}}
+\newcommand{\zz}{\vect{z}}
+\newcommand{\ii}{\mathrm{i}\mkern1mu}
+
+% DOCUMENT
+\begin{document}
+\section{Propagation in anisotropic media}
+
+Generate complex anisotropic and frequency dependant parameters for sound propagation in porous media. We consider a simple unit cell in a rectangular cubic lattice.
+The introduced cell is made of a truncated ellipsoid in a rectangular cubic lattice. As the unit cell is body centered, symmetry conditions yield to identical elliptic pores on each face of the cuboid. From the homogenisation theory, one can obtain the dynamic thermal and viscous permeabilities for such microstructure. Finally the acoustic behaviour is formally written using the equivalent fluid's tensorial mass density and bulk modulus.
+
+\subsection{Equivalent density tensor and Bulk modulus}
+
+From the permeabilities estimated previously, one can retreive the density tensor and the bulk modulus:
+
+\begin{equation}
+B = \frac{\gamma P_0/\phi}{\gamma + \ii \omega \frac{\rho_0 c_p}{\kappa}(\gamma -1)\frac{\Theta^\omega}{\phi}}
+\end{equation}
+
+\begin{equation}
+\rho_j = \frac{\eta}{-\ii \omega \mathcal{K}^\omega_j}
+\end{equation}
+
+
+The governing equations in the homogenised anisotropic medium read,
+
+\begin{align}
+\dive (\vect{v}) &= \ii\frac{\omega}{B}p\\
+\vect{v} &= \frac{1}{\ii \omega}\tens{\rho}^{-1}\grad p,
+\end{align}
+
+with, at frequency $\omega$, $B$ the bulk modulus and $\tens{\rho}$ the mass density tensor.
+
+\subsection{JCAL model}
+
+Since the homogenised cell problems to solve are numerically computed (Finite Element Method), an accurate description of the permeabilities implies heavy calculation. The Johnson-Champoux-Allard-Lafarge model gives an approximation for both thermal and viscous solutions.
+
+Are estimated through the following formulation, the dynamic viscous and thermal permeabilities,
+
+\begin{equation}
+\mathcal{K}^\omega_j = \frac{\mathcal{K}_j^0}{\sqrt{1-\ii\frac{\omega}{\omega_j}\frac{M_j}{2}}-\ii\frac{\omega}{\omega_j}},
+\end{equation}
+
+\begin{equation}
+\Theta^\omega = \frac{\Theta^0}{\sqrt{1-\ii\frac{\omega}{\omega_\theta}\frac{M_\theta}{2}}-\ii\frac{\omega}{\omega_\theta}}.
+\end{equation}
+
+Note that the viscous permeability can be established in each direction, hence, the subscript $j = [1,2,3]$ represents the direction $x_j$.
+The characteristic frequency $\omega_j$ locates the transition between both static and inertial viscous regimes, when $\omega_\theta$ is for the isothermal to adiabatic transition. Form factors $M_j$ and $M_\theta$ aswell as the characteristic frequencies are derived from all six parameters of the JCAL model. Three of them are scalars $[\phi;\Lambda^\prime;\Theta^0]$, respectively the porosity, the thermal characteristic length and the thermal static permeability ; and three others are direction-dependant $[\tau_j^\infty;k^0_j;\Lambda_j]$, respectively the high-frequency limit of tortuosity, the viscous static permeability and the viscous characteristic length in the direction $x_j$.
+These parameters are estimated throughout FEM routines which solve for both asymptotic viscous and thermal problems. 
+
+The aforementioned characteristic circular frequencies and form factors are expressed,
+\begin{align}
+M_j &= \frac{8 \tau^\infty_j k_j^0}{\Lambda_j^2 \phi} \quad\quad
+M_\theta = \frac{8\Theta^0}{\phi \Lambda^{\prime 2}},\\
+\omega_j &= \frac{\eta \phi}{\rho_0 k^0_j \tau_j^\infty} \quad\quad
+\omega_\theta = \frac{\kappa \phi}{\Theta^0 \rho_0 c_p},
+\end{align}
+
+with $\rho_0$ the density, $c_p$ the thermal capacity, $\eta$ the dynamic viscosity and $\kappa$ the thermal conductivity of the saturating fluid.
+
+\end{document}
